@@ -1222,6 +1222,54 @@ function updateProgressBar(additonalPercent, text)
 	}
 }
 
+var total = 1;
+var count = 0;
+
+function scanDir(arrayOfFolders, arrayOfFiles = [])
+{
+	try
+	{
+		var directory = arrayOfFolders[0]; 
+		var urlForSend = "core/php/getDirInfo.php?format=json";
+		var data = {arrayOfFolders, arrayOfFiles};
+		(function(_data){
+			$.ajax({
+				url: urlForSend,
+				dataType: "json",
+				data: {dir: directory},
+				type: "POST",
+				success(data)
+				{
+					parseDirectoryData(_data['arrayOfFolders'], _data['arrayOfFiles'], data);
+				}
+			});	
+		}(data));
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function parseDirectoryData(arrayOfFolders, arrayOfFiles, data)
+{
+	count++;
+	total += data['folders'].length;
+	console.log(count+"/"+total);
+	arrayOfFolders = arrayOfFolders.concat(data['folders']);
+	arrayOfFiles = arrayOfFiles.concat(data['files']);
+	arrayOfFolders.shift();
+	if(arrayOfFolders.length > 0)
+	{
+		scanDir(arrayOfFolders, arrayOfFiles);
+	}
+	else
+	{
+		console.log("END");
+		console.log(arrayOfFiles);
+	}
+}
+
 $(document).ready(function()
 {
 	resize();
@@ -1245,6 +1293,8 @@ $(document).ready(function()
 	{
 		//startPauseOnNotFocus();
 	}
+
+	scanDir(["/var/www/html/Log-Hog"]);
 
 	//checkForUpdateMaybe();
 
