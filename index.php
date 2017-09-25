@@ -33,9 +33,6 @@ if($backgroundPollingRateType == 'Seconds')
 	$backgroundPollingRate *= 1000;
 }
 
-require_once('top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
-
 $locationForStatusIndex = "";
 if($locationForStatus != "")
 {
@@ -55,10 +52,6 @@ if($locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
-elseif($withLogHog == 'true')
-{
-	$locationForMonitorIndex = './top/index.php';
-}
 elseif (is_dir("../monitor"))
 {
 	$locationForMonitorIndex = "../monitor/";
@@ -71,7 +64,7 @@ elseif (is_dir("../Monitor"))
 ?>
 <!doctype html>
 <head>
-	<title>Log Hog | Index</title>
+	<title>Search | Index</title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
@@ -86,7 +79,7 @@ elseif (is_dir("../Monitor"))
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div class="backgroundForMenus" id="menu">
-		<div style="display: inline-block;">
+		<div style="display: none;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
 					<?php if($pausePoll !== 'true'):?>
@@ -103,24 +96,18 @@ elseif (is_dir("../Monitor"))
 					<?php endif;?>
 				height="30px">
 			</div>
-			<div onclick="refreshAction();" class="menuImageDiv">
-				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
-				<img id="refreshingImage" class="menuImage" style="display: none;" src="<?php echo $baseUrl; ?>img/loading.gif" height="30px">
-			</div>
-			<?php if($truncateLog == 'true'): ?>
+			
 			<div onclick="deleteAction();"  class="menuImageDiv">
 				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
 			</div>
-			<?php else: ?>
-			<div onclick="clearLog();" class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
-			</div>
-			<?php endif; ?>
+			
 			<?php if($locationForMonitorIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
 				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
 			</div>
 			<?php endif; ?>
+
+
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
 				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
 				<?php if($updateNotificationEnabled === "true")
@@ -141,17 +128,30 @@ elseif (is_dir("../Monitor"))
 				</div>
 			<?php endif; ?>
 		</div>
+		<table width="100%">
+			<tr>
+				<td width="33%">
+					Menu
+				</td>
+				<td width="34%" style="text-align: center;">
+					New Find | New Grep
+				</td>
+				<td width="33%">
+				</td>
+			</tr>
+		</table>
 	</div>
 	
 	<div id="main">
-		<div id="log"></div>
-		<div id="firstLoad" style="width: 100%; height: 100%;">
-			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
-			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
-				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
-			</div>
-			<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
+		
+		<div> 
+		New Find
+
+		New GREP
 		</div>
+
+
+
 	</div>
 	
 	<div id="storage">
@@ -161,49 +161,16 @@ elseif (is_dir("../Monitor"))
 	</div>
 	
 	<div
-		class="backgroundForMenus" 
-		style=" 
-		<?php
-		if($bottomBarIndexShow == 'false')
-		{
-			echo 'display: none;';
-		}
-		?>"
-		id="titleContainer"
-	>
+		class="backgroundForMenus" style="display: none;" id="titleContainer">
 		<div id="title">
 			&nbsp;
 		</div>
 		&nbsp;&nbsp;
-		<form style="display: inline-block; float: right;" >
-			<a class="linkSmall" onclick="clearLog()" >
-				Clear Log
-			</a>
-			<a class="linkSmall" onclick="deleteLogPopup()" >
-				Delete Log
-			</a>
-		</form>
 	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
 		<?php
-		if($rightClickMenuEnable == "true"): ?>
-			var Rightclick_ID_list = [];
-			if(document.getElementById('gear'))
-			{
-				Rightclick_ID_list.push('gear');
-			}
-			if(document.getElementById('deleteImage'))
-			{
-				Rightclick_ID_list.push('deleteImage');
-			}
-			<?php
-			if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
-			{
-				echo "Rightclick_ID_list.push('updateImage');";
-			}
-		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
@@ -234,7 +201,6 @@ elseif (is_dir("../Monitor"))
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
 
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">

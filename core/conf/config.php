@@ -255,7 +255,7 @@ $defaultConfig = array(
 		),
 	'backgroundColor'	=> "#292929",
 	'mainFontColor'		=> '#FFFFFF',
-	'backgroundHeaderColor'	=> "#222222",
+	'backgroundHeaderColor'	=> "rgba(0,0,0,.2)",
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',

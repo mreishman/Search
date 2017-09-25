@@ -621,14 +621,6 @@ function update(data) {
 								$("#menu a." + id + "Button").addClass("updated");
 							}
 						}
-						
-						if(initialized && updated && $(window).filter(":focus").length === 0) 
-						{
-							if(flashTitleUpdateLog)
-							{
-								flashTitle();
-							}
-						}
 					}
 					else
 					{
@@ -734,42 +726,6 @@ function resize()
 	}
 }
 
-function flashTitle() 
-{
-	try
-	{
-    	stopFlashTitle();
-		$("title").text("");
-		flasher = setInterval(function() {
-			$("title").text($("title").text() === "" ? title : "");
-		}, 1000);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-	
-}
-
-function stopFlashTitle() 
-{
-	try
-	{
-    	clearInterval(flasher);
-		$("title").text(title);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-	
-}
-
-function focus() 
-{
-	stopFlashTitle();
-}
-
 function startPollTimer()
 {
 	/* Dont try catch visibility  */
@@ -826,7 +782,6 @@ function checkIfPageHidden()
 			{
 				pausePoll = false;
 				showPauseButton();
-				stopFlashTitle();
 				if(pollTimer == null)
 				{
 					poll();
@@ -1274,7 +1229,7 @@ $(document).ready(function()
 	window.onresize = resize;
 	window.onfocus = focus;
 
-	refreshAction();
+	//refreshAction();
 
 	if(pausePollFromFile)
 	{
@@ -1283,14 +1238,14 @@ $(document).ready(function()
 	}
 	else
 	{
-		startPollTimer();
+		//startPollTimer();
 	}
 
 	if(pausePollOnNotFocus)
 	{
-		startPauseOnNotFocus();
+		//startPauseOnNotFocus();
 	}
 
-	checkForUpdateMaybe();
+	//checkForUpdateMaybe();
 
 });

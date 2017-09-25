@@ -57,23 +57,34 @@ function filePermsDisplay($key)
 	return $info;
 }
 
+function getDirContents($dir){
+    $files = scandir($dir);
+    $results = ['files' => array(), 'folders' => array()];
+    foreach($files as $key => $value){
+        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+        if(!is_dir($path)) {
+            array_push($results['files'], $path);
+        } else if($value != "." && $value != "..") {
+            array_push($results['folders'], $path);
+        }
+    }
+
+    return $results;
+}
+
 function loadSentryData($sendCrashInfoJS)
 {
 	if($sendCrashInfoJS === "true")
 	{
-		return  "
-		<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
-		<script type=\"text/javascript\">
-		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
-		    release: \"3.0\"
-		}).install();
+		return "
+		<script>
 
 		function eventThrowException(e)
 		{
-			Raven.captureException(e);
+			//this would send errors, but it needs to be changed for this repo
 		}
 
-		</script>";
+	</script>";
 	}
 	return "
 	<script>
