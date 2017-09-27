@@ -57,18 +57,28 @@ function filePermsDisplay($key)
 	return $info;
 }
 
-function getDirContents($dir){
+function getDirContents($dir)
+{
     $files = scandir($dir);
+    $skipFolders = array('.git');
+    //$files = array_diff(scandir($dir), array('..', '.'));
     $results = ['files' => array(), 'folders' => array()];
-    foreach($files as $key => $value){
-        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
-        if(!is_dir($path)) {
-            array_push($results['files'], $path);
-        } else if($value != "." && $value != "..") {
-            array_push($results['folders'], $path);
-        }
+    foreach($files as $key => $value)
+    {
+    	//if($value != "." && $value != "..")
+    	//if(!in_array($value, $skipFolders))
+    	//{
+	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+	        if(!is_dir($path))
+	        {
+	            array_push($results['files'], $path);
+	        }
+	        else if($value != "." && $value != "..")
+	        {
+	            array_push($results['folders'], $path);
+	        }
+	    //}
     }
-
     return $results;
 }
 

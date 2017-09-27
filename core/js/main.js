@@ -1222,16 +1222,13 @@ function updateProgressBar(additonalPercent, text)
 	}
 }
 
-var total = 1;
-var count = 0;
-
-function scanDir(arrayOfFolders, arrayOfFiles = [])
+function scanDir(arrayOfFolders, idOfScan, arrayOfFiles = [], total = 1, count = 0)
 {
 	try
 	{
 		var directory = arrayOfFolders[0]; 
 		var urlForSend = "core/php/getDirInfo.php?format=json";
-		var data = {arrayOfFolders, arrayOfFiles};
+		var data = {arrayOfFolders, arrayOfFiles, total, count};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1240,7 +1237,7 @@ function scanDir(arrayOfFolders, arrayOfFiles = [])
 				type: "POST",
 				success(data)
 				{
-					parseDirectoryData(_data['arrayOfFolders'], _data['arrayOfFiles'], data);
+					parseDirectoryData(_data['arrayOfFolders'], _data['idOfScan'], _data['arrayOfFiles'], _data['total'], _data['count'], data);
 				}
 			});	
 		}(data));
@@ -1251,17 +1248,21 @@ function scanDir(arrayOfFolders, arrayOfFiles = [])
 	}
 }
 
-function parseDirectoryData(arrayOfFolders, arrayOfFiles, data)
+function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count, data)
 {
 	count++;
 	total += data['folders'].length;
-	console.log(count+"/"+total);
+	if((count%100) === 0)
+	{
+		console.log(count+"/"+total);
+	}
+	document.getElementById(idOfScan+'Progress').value = (count/total);
 	arrayOfFolders = arrayOfFolders.concat(data['folders']);
 	arrayOfFiles = arrayOfFiles.concat(data['files']);
 	arrayOfFolders.shift();
 	if(arrayOfFolders.length > 0)
 	{
-		scanDir(arrayOfFolders, arrayOfFiles);
+		scanDir(arrayOfFolders, idOfScan, arrayOfFiles, total, count);
 	}
 	else
 	{
@@ -1294,7 +1295,7 @@ $(document).ready(function()
 		//startPauseOnNotFocus();
 	}
 
-	scanDir(["/var/www/html/Log-Hog"]);
+	scanDir(["/var/www/html/Log-Hog"], 'test');
 
 	//checkForUpdateMaybe();
 
