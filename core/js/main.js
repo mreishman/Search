@@ -1228,7 +1228,7 @@ function scanDir(arrayOfFolders, idOfScan, arrayOfFiles = [], total = 1, count =
 	{
 		var directory = arrayOfFolders[0]; 
 		var urlForSend = "core/php/getDirInfo.php?format=json";
-		var data = {arrayOfFolders, arrayOfFiles, total, count};
+		var data = {arrayOfFolders, idOfScan, arrayOfFiles, total, count};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1271,6 +1271,33 @@ function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count
 	}
 }
 
+function phpGrep(pattern, file)
+{
+	try
+	{
+		var urlForSend = "core/php/phpGrep.php?format=json";
+		var objectSent = new Array();
+		var data = {file, pattern};
+		console.log(data);
+		(function(_data){
+			$.ajax({
+				url: urlForSend,
+				dataType: "json",
+				data,
+				type: "POST",
+				success(data)
+				{
+					console.log(data);
+				}
+			});	
+		}(data));
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 $(document).ready(function()
 {
 	resize();
@@ -1295,7 +1322,10 @@ $(document).ready(function()
 		//startPauseOnNotFocus();
 	}
 
-	scanDir(["/var/www/html/Log-Hog"], 'test');
+	//scanDir(["/var/www/html/Log-Hog"], 'test');
+
+
+	phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js");
 
 	//checkForUpdateMaybe();
 

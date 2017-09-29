@@ -57,6 +57,32 @@ function filePermsDisplay($key)
 	return $info;
 }
 
+function phpGrep($objectSent)
+{
+	$returnArray = array();
+	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
+	$grepResults = explode(PHP_EOL, $grepResults);
+	if($grepResults)
+	{
+		$file =  file($objectSent['file']);
+		foreach ($grepResults as $result)
+		{
+			$positionArray = explode(":", $result);
+			if(count($positionArray) === 3)
+			{
+				//as expected
+				array_push($returnArray, $file[((int)($positionArray[1])-1)]);
+			}
+			else
+			{
+				//?????
+			}
+		}
+	}
+
+	return $returnArray;
+}
+
 function getDirContents($dir)
 {
     $files = scandir($dir);
