@@ -62,8 +62,12 @@ function phpGrep($objectSent)
 	$returnArray = array();
 	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
 	$grepResults = explode(PHP_EOL, $grepResults);
+	$defaultPadding = 3; //lines +/- of padding for around found thing.
 	if($grepResults)
 	{
+		$subArray = array();
+		$subArray['data'] = array();
+		$subArray['positionArray'] = array();
 		$file =  file($objectSent['file']);
 		foreach ($grepResults as $result)
 		{
@@ -71,13 +75,37 @@ function phpGrep($objectSent)
 			if(count($positionArray) === 3)
 			{
 				//as expected
-				array_push($returnArray, $file[((int)($positionArray[1])-1)]);
+				$subSubArray = array();
+				for ($i = $defaultPadding; $i > 0; $i--)
+				{
+					if(isset($file[((int)($positionArray[1])-1-$i)]))
+					{ 
+						array_push($subSubArray, $file[((int)($positionArray[1])-1-$i)]);
+					}
+				}
+
+				array_push($subSubArray, $file[((int)($positionArray[1])-1)]);
+				
+				for ($i = $defaultPadding; $i > 0; $i--)
+				{ 
+					if(isset($file[((int)($positionArray[1])-1+(4-$i))]))
+					{
+						array_push($subSubArray, $file[((int)($positionArray[1])-1+(4-$i))]);
+					}
+				}
+
+				array_push($subArray['data'], $subSubArray);
+				array_push($subArray['positionArray'], ((int)($positionArray[1])-1));
 			}
 			else
 			{
 				//?????
 			}
 		}
+		//getName
+		$name = explode(":", $grepResults[0]);
+		$name = $name[0];
+		$returnArray[$name] = $subArray;
 	}
 
 	return $returnArray;
