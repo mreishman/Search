@@ -159,10 +159,7 @@ elseif (is_dir("../Monitor"))
 				<progress style="color: white; background: #000000; width: 100%;" id="testProgress" value="0" max="1">
 			</div>
 			<div style="color: black; width: 100%; text-align: center;" id="testTitle">
-				<h2>/var/www/html/Log-Hog/</h2>
-			</div>
-			<div style="color: black;" id="testButtons">
-				[pause] [delete]
+				<h2>/var/www/html/Log-Hog/</h2><h3> "eventThrowException(e);"</h3>
 			</div>
 			<div id="testFoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
 			</div>

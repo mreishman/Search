@@ -1271,13 +1271,13 @@ function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count
 	}
 }
 
-function phpGrep(pattern, file)
+function phpGrep(pattern, file, id)
 {
 	try
 	{
 		var urlForSend = "core/php/phpGrep.php?format=json";
 		var objectSent = new Array();
-		var data = {file, pattern, id: 'test'};
+		var data = {file, pattern, id};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1318,6 +1318,10 @@ function styleReturnedData(data, otherData)
 				}
 				tableOutput += "<td>" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + (data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
 			}
+			if(j != (data[dataKeys[i]]["data"].length-1))
+			{
+				tableOutput += "<td>...</td><td></td>";
+			}
 			
 		}
 		tableOutput += "</table>";
@@ -1352,7 +1356,7 @@ $(document).ready(function()
 	//scanDir(["/var/www/html/Log-Hog"], 'test');
 
 
-	phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js");
+	phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js","test");
 
 	//checkForUpdateMaybe();
 
