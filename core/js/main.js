@@ -1277,8 +1277,7 @@ function phpGrep(pattern, file)
 	{
 		var urlForSend = "core/php/phpGrep.php?format=json";
 		var objectSent = new Array();
-		var data = {file, pattern};
-		console.log(data);
+		var data = {file, pattern, id: 'test'};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1287,7 +1286,7 @@ function phpGrep(pattern, file)
 				type: "POST",
 				success(data)
 				{
-					console.log(data);
+					styleReturnedData(data, _data);
 				}
 			});	
 		}(data));
@@ -1295,6 +1294,34 @@ function phpGrep(pattern, file)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function styleReturnedData(data, otherData)
+{
+	var idToAttach = otherData['id']+"FoundThings";
+	var dataKeys = Object.keys(data);
+	for (var i = dataKeys.length - 1; i >= 0; i--) 
+	{
+		var tableOutput = "<table style='width: 100%;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%; border: 1px solid white;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
+		for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
+		{
+			for (var k = 0; k < data[dataKeys[i]]["data"][j].length; k++)
+			{
+				if( (data[dataKeys[i]]["positionArray"][j][0]+k) === (data[dataKeys[i]]["positionArray"][j][1]))
+				{
+					tableOutput += "<tr style='background-color: #7c7;'>";
+				}
+				else
+				{
+					tableOutput += "<tr>";
+				}
+				tableOutput += "<td>" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + (data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
+			}
+			
+		}
+		tableOutput += "</table>";
+		$("#"+idToAttach).append(tableOutput);
 	}
 }
 

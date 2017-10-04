@@ -76,15 +76,25 @@ function phpGrep($objectSent)
 			{
 				//as expected
 				$subSubArray = array();
+				$setFirstNum = -1;
+
 				for ($i = $defaultPadding; $i > 0; $i--)
 				{
 					if(isset($file[((int)($positionArray[1])-1-$i)]))
 					{ 
 						array_push($subSubArray, $file[((int)($positionArray[1])-1-$i)]);
+						if($setFirstNum  === -1)
+						{
+							$setFirstNum = ((int)($positionArray[1])-1-$i);
+						}
 					}
 				}
 
 				array_push($subSubArray, $file[((int)($positionArray[1])-1)]);
+				if($setFirstNum  === -1)
+				{
+					$setFirstNum = ((int)($positionArray[1])-1);
+				}
 				
 				for ($i = $defaultPadding; $i > 0; $i--)
 				{ 
@@ -95,7 +105,8 @@ function phpGrep($objectSent)
 				}
 
 				array_push($subArray['data'], $subSubArray);
-				array_push($subArray['positionArray'], ((int)($positionArray[1])-1));
+				array_push($subArray['positionArray'], array($setFirstNum, ((int)($positionArray[1])-1)));
+
 			}
 			else
 			{
@@ -120,8 +131,8 @@ function getDirContents($dir)
     foreach($files as $key => $value)
     {
     	//if($value != "." && $value != "..")
-    	//if(!in_array($value, $skipFolders))
-    	//{
+    	if(!in_array($value, $skipFolders))
+    	{
 	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
 	        if(!is_dir($path))
 	        {
@@ -131,7 +142,7 @@ function getDirContents($dir)
 	        {
 	            array_push($results['folders'], $path);
 	        }
-	    //}
+	    }
     }
     return $results;
 }

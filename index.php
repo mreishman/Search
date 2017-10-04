@@ -164,7 +164,7 @@ elseif (is_dir("../Monitor"))
 			<div style="color: black;" id="testButtons">
 				[pause] [delete]
 			</div>
-			<div style="background-color: grey; height: 100px; border: 1px solid black; margin-top: 10px;">
+			<div id="testFoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
 			</div>
 		</div>
 
