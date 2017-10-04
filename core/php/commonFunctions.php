@@ -63,7 +63,7 @@ function phpGrep($objectSent)
 	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
 	$grepResults = explode(PHP_EOL, $grepResults);
 	$defaultPadding = 3; //lines +/- of padding for around found thing.
-	if($grepResults)
+	if($grepResults && $grepResults !== "" && $grepResults !== array(""))
 	{
 		$subArray = array();
 		$subArray['data'] = array();

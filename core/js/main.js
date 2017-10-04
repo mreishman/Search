@@ -1268,6 +1268,10 @@ function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count
 	{
 		console.log("END");
 		console.log(arrayOfFiles);
+		for (var i = arrayOfFiles.length - 1; i >= 0; i--) {
+			phpGrep("eventThrowException",arrayOfFiles[i],"test");
+
+		}
 	}
 }
 
@@ -1299,33 +1303,37 @@ function phpGrep(pattern, file, id)
 
 function styleReturnedData(data, otherData)
 {
-	var idToAttach = otherData['id']+"FoundThings";
-	var dataKeys = Object.keys(data);
-	for (var i = dataKeys.length - 1; i >= 0; i--) 
+	if(data)
 	{
-		var tableOutput = "<table style='width: 100%;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%; border: 1px solid white;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
-		for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
+		var idToAttach = otherData['id']+"FoundThings";
+		var dataKeys = Object.keys(data);
+		for (var i = dataKeys.length - 1; i >= 0; i--) 
 		{
-			for (var k = 0; k < data[dataKeys[i]]["data"][j].length; k++)
+			var tableOutput = "<table style='width: 100%; border-spacing: 0;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%; border: 1px solid white;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
+			for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
 			{
-				if( (data[dataKeys[i]]["positionArray"][j][0]+k) === (data[dataKeys[i]]["positionArray"][j][1]))
+				
+				for (var k = 0; k < data[dataKeys[i]]["data"][j].length; k++)
 				{
-					tableOutput += "<tr style='background-color: #7c7;'>";
+					if( (data[dataKeys[i]]["positionArray"][j][0]+k) === (data[dataKeys[i]]["positionArray"][j][1]))
+					{
+						tableOutput += "<tr style='background-color: #7c7;'>";
+					}
+					else
+					{
+						tableOutput += "<tr>";
+					}
+					tableOutput += "<td style='text-align: right; background-color: #555;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + (data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
 				}
-				else
+				if(j != (data[dataKeys[i]]["data"].length-1))
 				{
-					tableOutput += "<tr>";
+					tableOutput += "<td style='text-align: right; background-color: #555;' >...</td><td></td>";
 				}
-				tableOutput += "<td>" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + (data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
+				
 			}
-			if(j != (data[dataKeys[i]]["data"].length-1))
-			{
-				tableOutput += "<td>...</td><td></td>";
-			}
-			
+			tableOutput += "</table>";
+			$("#"+idToAttach).append(tableOutput);
 		}
-		tableOutput += "</table>";
-		$("#"+idToAttach).append(tableOutput);
 	}
 }
 
@@ -1353,10 +1361,10 @@ $(document).ready(function()
 		//startPauseOnNotFocus();
 	}
 
-	//scanDir(["/var/www/html/Log-Hog"], 'test');
+	scanDir(["/var/www/html/Log-Hog"], 'test');
 
 
-	phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js","test");
+	//phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js","test");
 
 	//checkForUpdateMaybe();
 
