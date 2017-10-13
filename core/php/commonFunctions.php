@@ -142,7 +142,7 @@ function getDirContents($dir)
         {
         	if(!in_array(strtolower($value), $skipFolders))
 			{
-            array_push($results['folders'], $path);
+            	array_push($results['folders'], $path);
         	}
         }
     }
@@ -168,7 +168,7 @@ function eventThrowException(e)
 			//this would send errors, but it is disabled
 		}
 
-		
+
 </script>';
 	}
 	return "

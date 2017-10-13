@@ -1268,29 +1268,48 @@ function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count
 	{
 		console.log("END");
 		console.log(arrayOfFiles);
-		for (var i = arrayOfFiles.length - 1; i >= 0; i--) {
-			phpGrep("eventThrowException",arrayOfFiles[i],"test");
-
-		}
+		arrayOfFiles.sort();
+		console.log(arrayOfFiles);
+		loopThroughFiles("loading-mask", "" ,"test", -1, arrayOfFiles);
+	
 	}
 }
 
-function phpGrep(pattern, file, id)
+function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
+{
+	var total = arrayOfFiles.length;
+	count++;
+	if((count%100) === 0)
+	{
+		console.log(count+"/"+total);
+	}
+	if(count < arrayOfFiles.length)
+	{
+		phpGrep(pattern,arrayOfFiles[count],"test", count, arrayOfFiles);
+	}
+	else
+	{
+		console.log("END");
+	}
+}
+
+function phpGrep(pattern, file, id, count, files)
 {
 	try
 	{
 		var urlForSend = "core/php/phpGrep.php?format=json";
 		var objectSent = new Array();
-		var data = {file, pattern, id};
+		var data = {file, pattern, id, count, files};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data,
+				data: {file, pattern, id, count},
 				type: "POST",
 				success(data)
 				{
 					styleReturnedData(data, _data);
+					loopThroughFiles(_data['pattern'], _data['file'], _data['id'], _data['count'],  _data['files']);
 				}
 			});	
 		}(data));
@@ -1312,7 +1331,7 @@ function styleReturnedData(data, otherData)
 			var tableOutput = "<table style='width: 100%; border-spacing: 0;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%; border: 1px solid white;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
 			for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
 			{
-				
+
 				for (var k = 0; k < data[dataKeys[i]]["data"][j].length; k++)
 				{
 					if( (data[dataKeys[i]]["positionArray"][j][0]+k) === (data[dataKeys[i]]["positionArray"][j][1]))
@@ -1361,7 +1380,7 @@ $(document).ready(function()
 		//startPauseOnNotFocus();
 	}
 
-	scanDir(["/var/www/html/Log-Hog"], 'test');
+	scanDir(["/var/www/html/app/"], 'test');
 
 
 	//phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js","test");
