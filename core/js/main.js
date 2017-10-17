@@ -434,15 +434,3 @@ $(document).ready(function()
 	//checkForUpdateMaybe();
 
 });
-
-function toggleMenu()
-{
-	if(document.getElementById("menuMain").style.display === "block")
-	{
-		document.getElementById("menuMain").style.display = "none";
-	}
-	else
-	{
-		document.getElementById("menuMain").style.display = "block";
-	}
-}

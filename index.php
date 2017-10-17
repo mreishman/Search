@@ -78,21 +78,7 @@ elseif (is_dir("../Monitor"))
 	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; 
-	require_once('menu.php');?>
-	<div style="z-index: 40;" class="backgroundForMenus" id="menu">
-		<table width="100%">
-			<tr>
-				<td width="33%">
-					<a onclick="toggleMenu();" >Menu</a>
-				</td>
-				<td width="34%" style="text-align: center;">
-					
-				</td>
-				<td width="33%">
-				</td>
-			</tr>
-		</table>
-	</div>
+	require_once('core/php/template/menu.php');?>
 	
 	<div style="z-index: 5;" id="main">
 
