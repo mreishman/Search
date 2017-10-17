@@ -52,15 +52,17 @@ else
 }
 
 ?>
-<div id="menuMain" style="width: 100%; height: 100%; background-color: rgba(0,0,0,.5); display: none; position: absolute; z-index: 20;">
+<div onclick="toggleMenu();" id="menuMain" style="width: 100%; height: 100%; background-color: rgba(0,0,0,.5); display: none; position: absolute; z-index: 20; padding-top: 65px;">
 	<?php
 	foreach ($menuItems as $menuItem => $value): ?>
+		<a style="cursor: pointer" onclick="<?php echo $value['action'];?>">
 		<div style="display: inline-block; width: 150px; height: 150px; margin: 75px; border: 1px solid white;">
-			<a onclick="<?php echo $value['action'];?>"><?php echo $value['title'];?></a>
+			<?php echo $value['title'];?>
 		</div>
+		</a>
 	<?php endforeach; ?>
 </div>
-<div style="z-index: 40;" class="backgroundForMenus" id="menu">
+<div style="z-index: 40; border-bottom: 1px dotted grey;" class="backgroundForMenus" id="menu">
 	<table width="100%">
 		<tr>
 			<td width="33%">

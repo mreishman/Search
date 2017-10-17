@@ -27,7 +27,6 @@ var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
 var timer;
-var menuShown = false;
 
 function escapeHTML(unsafeStr)
 {
