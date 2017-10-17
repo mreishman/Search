@@ -1222,13 +1222,24 @@ function updateProgressBar(additonalPercent, text)
 	}
 }
 
-function scanDir(arrayOfFolders, idOfScan, arrayOfFiles = [], total = 1, count = 0)
+function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1, count = 0)
 {
+	if(arrayOfFolders.constructor !== Array)
+	{
+		var blank = $("#storage .container").html();
+		var item = blank;
+		item = item.replace(/{{id}}/g, idOfScan);
+		item = item.replace(/{{folder}}/g, arrayOfFolders);
+		item = item.replace(/{{search}}/g, scanFor);
+		var main = $("#main");
+		main.append(item);
+		arrayOfFolders = [arrayOfFolders];
+	}
 	try
 	{
 		var directory = arrayOfFolders[0]; 
 		var urlForSend = "core/php/getDirInfo.php?format=json";
-		var data = {arrayOfFolders, idOfScan, arrayOfFiles, total, count};
+		var data = {arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1237,7 +1248,7 @@ function scanDir(arrayOfFolders, idOfScan, arrayOfFiles = [], total = 1, count =
 				type: "POST",
 				success(data)
 				{
-					parseDirectoryData(_data['arrayOfFolders'], _data['idOfScan'], _data['arrayOfFiles'], _data['total'], _data['count'], data);
+					parseDirectoryData(_data['arrayOfFolders'], _data['scanFor'], _data['idOfScan'], _data['arrayOfFiles'], _data['total'], _data['count'], data);
 				}
 			});	
 		}(data));
@@ -1248,21 +1259,19 @@ function scanDir(arrayOfFolders, idOfScan, arrayOfFiles = [], total = 1, count =
 	}
 }
 
-function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count, data)
+function parseDirectoryData(arrayOfFolders, scanFor, idOfScan, arrayOfFiles, total, count, data)
 {
 	count++;
 	total += data['folders'].length;
-	if((count%100) === 0)
-	{
-		console.log(count+"/"+total);
-	}
-	document.getElementById(idOfScan+'Progress').value = (count/total);
+	var currentPercent = ((100*(count/total))/2).toFixed(2);
+	document.getElementById(idOfScan+'Progress').value = currentPercent/100;
+	document.getElementById(idOfScan+'ProgressTxt').innerHTML = currentPercent;
 	arrayOfFolders = arrayOfFolders.concat(data['folders']);
 	arrayOfFiles = arrayOfFiles.concat(data['files']);
 	arrayOfFolders.shift();
 	if(arrayOfFolders.length > 0)
 	{
-		scanDir(arrayOfFolders, idOfScan, arrayOfFiles, total, count);
+		scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count);
 	}
 	else
 	{
@@ -1270,7 +1279,7 @@ function parseDirectoryData(arrayOfFolders, idOfScan, arrayOfFiles, total, count
 		console.log(arrayOfFiles);
 		arrayOfFiles.sort();
 		console.log(arrayOfFiles);
-		loopThroughFiles("loading-mask", "" ,"test", -1, arrayOfFiles);
+		loopThroughFiles(scanFor, "" ,idOfScan, -1, arrayOfFiles);
 	
 	}
 }
@@ -1279,13 +1288,12 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 {
 	var total = arrayOfFiles.length;
 	count++;
-	if((count%100) === 0)
-	{
-		console.log(count+"/"+total);
-	}
+	var currentPercent = (((100*(count/total))/2)+50).toFixed(2);
+	document.getElementById(id+'Progress').value = currentPercent/100;
+	document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
 	if(count < arrayOfFiles.length)
 	{
-		phpGrep(pattern,arrayOfFiles[count],"test", count, arrayOfFiles);
+		phpGrep(pattern,arrayOfFiles[count],id, count, arrayOfFiles);
 	}
 	else
 	{
@@ -1342,7 +1350,7 @@ function styleReturnedData(data, otherData)
 					{
 						tableOutput += "<tr>";
 					}
-					tableOutput += "<td style='text-align: right; background-color: #555;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + escapeHTML(data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
+					tableOutput += "<td style='text-align: right; background-color: #555; width: 100px;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + escapeHTML(data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
 				}
 				if(j != (data[dataKeys[i]]["data"].length-1))
 				{
@@ -1380,7 +1388,7 @@ $(document).ready(function()
 		//startPauseOnNotFocus();
 	}
 
-	scanDir(["/var/www/html/app/"], 'test');
+	scanDir("/var/www/html/app/", 'test', 'loading-mask');
 
 
 	//phpGrep("eventThrowException","/var/www/html/Log-Hog/core/js/expFeatures.js","test");

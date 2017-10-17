@@ -136,14 +136,23 @@ function getDirContents($dir)
         $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
         if(!is_dir($path))
         {
-            array_push($results['files'], $path);
+        	$skip = false;
+        	foreach ($skipFiles as $key)
+        	{
+        		if(strpos($path, $key))
+        		{
+        			$skip = true;
+        			break;
+        		}
+        	}
+        	if(!$skip)
+        	{
+            	array_push($results['files'], $path);
+            }
         }
         else if($value != "." && $value != "..")
         {
-        	if(!in_array(strtolower($value), $skipFolders))
-			{
-            	array_push($results['folders'], $path);
-        	}
+            array_push($results['folders'], $path);
         }
     }
     return $results;

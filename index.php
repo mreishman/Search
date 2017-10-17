@@ -134,7 +134,7 @@ elseif (is_dir("../Monitor"))
 					Menu
 				</td>
 				<td width="34%" style="text-align: center;">
-					New Find | New Grep
+					
 				</td>
 				<td width="33%">
 				</td>
@@ -143,26 +143,8 @@ elseif (is_dir("../Monitor"))
 	</div>
 	
 	<div id="main">
-		
-		
-		<div style="width: 80%; margin-left: 10%; padding: 5px; margin-bottom: 40px; " id="header" class="scanBar">
-			<div style="width: 40%; color: black; display: inline-block; text-align: center; line-height: 50px; background-color: white; border: 1px solid black;"> 
-			New Find
-			</div>
-			<div style="width: 40%; color: black; display: inline-block; text-align: center; line-height: 50px; float: right; background-color: white; border: 1px solid black;">
-			New GREP
-			</div>
-		</div>
 
-		<div style="width: 80%; margin-left: 10%; background-color: white; min-height: 200px; padding: 5px; margin-bottom: 40px;border: 1px solid black; " id="test" class="scanBar">
-			<div>
-				<progress style="color: white; background: #000000; width: 100%;" id="testProgress" value="0" max="1">
-			</div>
-			<div style="color: black; width: 100%; text-align: center;" id="testTitle">
-				<h2>/var/www/html/app/</h2><h3> "#loading-mask"</h3>
-			</div>
-			<div id="testFoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
-			</div>
+		<div style="height: 100px;">
 		</div>
 
 	</div>
@@ -177,13 +159,16 @@ elseif (is_dir("../Monitor"))
 
 
 	<div id="storage">
-		<div id="{{id}}" class="scanBar">
-			<div >
-				<progress id="{{id}}Progress" value="0" max="1">
-			</div>
-			<div id="{{id}}Title">
-			</div>
-			<div id="{{id}}Buttons">
+		<div class="container">
+			<div style="width: 80%; margin-left: 10%; background-color: white; min-height: 200px; padding: 5px; margin-bottom: 40px;border: 1px solid black; " id="{{id}}" class="scanBar">
+				<div>
+					<progress style="color: white; background: #000000; width: 100%;" id="{{id}}Progress" value="0" max="1"></progress>
+				</div>
+				<div style="color: black; width: 100%; text-align: center;" id="{{id}}Title">
+					<h3> <span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%</h3>
+				</div>
+				<div id="{{id}}FoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
+				</div>
 			</div>
 		</div>
 	</div>
