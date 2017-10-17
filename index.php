@@ -77,61 +77,13 @@ elseif (is_dir("../Monitor"))
 	<?php require_once("core/php/customCSS.php");
 	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
-	<?php endif; ?>
-	<div class="backgroundForMenus" id="menu">
-		<div style="display: none;">
-			<div onclick="pausePollAction();" class="menuImageDiv">
-				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
-					<?php if($pausePoll !== 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
-				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
-					<?php if($pausePoll === 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
-			</div>
-			
-			<div onclick="deleteAction();"  class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
-			</div>
-			
-			<?php if($locationForMonitorIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
-			</div>
-			<?php endif; ?>
-
-
-			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
-				<?php if($updateNotificationEnabled === "true")
-				{
-					if($levelOfUpdate == 1)
-					{
-						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
-					} 
-					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-					{
-						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
-					} 
-				}?>
-			</div>
-			<?php if ($locationForStatusIndex != ""):?>
-				<div class="menuImage" style="display: inline-block; cursor: pointer; color: white; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
-					gS
-				</div>
-			<?php endif; ?>
-		</div>
+	<?php endif; 
+	require_once('menu.php');?>
+	<div style="z-index: 40;" class="backgroundForMenus" id="menu">
 		<table width="100%">
 			<tr>
 				<td width="33%">
-					Menu
+					<a onclick="toggleMenu();" >Menu</a>
 				</td>
 				<td width="34%" style="text-align: center;">
 					
@@ -142,21 +94,12 @@ elseif (is_dir("../Monitor"))
 		</table>
 	</div>
 	
-	<div id="main">
+	<div style="z-index: 5;" id="main">
 
 		<div style="height: 100px;">
 		</div>
 
 	</div>
-	
-	<!--
-
-	<div class="menuItem">
-			<a class="{{id}}Button {{class}}" onclick="show(this, '{{id}}')">{{title}}</a>
-		</div>
-
-	-->
-
 
 	<div id="storage">
 		<div class="container">
@@ -172,14 +115,7 @@ elseif (is_dir("../Monitor"))
 			</div>
 		</div>
 	</div>
-	
-	<div
-		class="backgroundForMenus" style="display: none;" id="titleContainer">
-		<div id="title">
-			&nbsp;
-		</div>
-		&nbsp;&nbsp;
-	</div>
+
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
