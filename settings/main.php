@@ -36,68 +36,63 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<?php if($triggerSaveUpdate): ?>
-	<script type="text/javascript">
-	document.getElementById('settingsMainWatch').submit();
-	</script>
-<?php else: ?>
-	<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
-	<script type="text/javascript">
-	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	var mainData;
-	var watchlistData;
-	var menuData;
-	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var fileArrayKeys = Object.keys(fileArray);
-	var countOfWatchList = fileArrayKeys.length;
-	var countOfAddedFiles = 0;
-	var countOfClicks = 0;
-	var locationInsert = "newRowLocationForWatchList";
- 	var savedInnerHtmlWatchList;
- 	var savedInnerHtmlMainVars;
- 	var savedInnerHtmlMenu;
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
- 	var countOfWatchListStatic = countOfWatchList;
-	var countOfAddedFilesStatic = countOfAddedFiles;
-	var countOfClicksStatic = countOfClicks;
-	var locationInsertStatic = locationInsert;
 
-	function goToUrl(url)
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+<script type="text/javascript">
+document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+var mainData;
+var watchlistData;
+var menuData;
+var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
+var fileArrayKeys = Object.keys(fileArray);
+var countOfWatchList = fileArrayKeys.length;
+var countOfAddedFiles = 0;
+var countOfClicks = 0;
+var locationInsert = "newRowLocationForWatchList";
+	var savedInnerHtmlWatchList;
+	var savedInnerHtmlMainVars;
+	var savedInnerHtmlMenu;
+var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var countOfWatchListStatic = countOfWatchList;
+var countOfAddedFilesStatic = countOfAddedFiles;
+var countOfClicksStatic = countOfClicks;
+var locationInsertStatic = locationInsert;
+
+function goToUrl(url)
+{
+	var goToPage = true
+	if(popupSettingsArray.saveSettings != "false")
 	{
-		var goToPage = true
-		if(popupSettingsArray.saveSettings != "false")
-		{
-			goToPage = !checkForChangesMainSettings();
-			if(goToPage)
-			{
-				goToPage = !checkForChangesWatchListPoll();
-				if(goToPage)
-				{
-					goToPage = !checkForChangesMenuSettings();
-				}
-			}
-		}
+		goToPage = !checkForChangesMainSettings();
 		if(goToPage)
 		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
+			goToPage = !checkForChangesWatchListPoll();
+			if(goToPage)
+			{
+				goToPage = !checkForChangesMenuSettings();
+			}
 		}
 	}
-
-	$( document ).ready(function() 
+	if(goToPage)
 	{
-		refreshSettingsMainVar();
-		refreshSettingsMenuVar();
-		refreshSettingsWatchList();
-    	setInterval(poll, 100);
-    	$( "#main" ).scroll(function()
-    	{
-			highlightTopNavDepends();
-		});
-	});
+		window.location.href = url;
+	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
+}
 
-	</script>
-<?php endif; ?>
+$( document ).ready(function() 
+{
+	refreshSettingsMainVar();
+	refreshSettingsMenuVar();
+	refreshSettingsWatchList();
+	setInterval(poll, 100);
+	$( "#main" ).scroll(function()
+	{
+		highlightTopNavDepends();
+	});
+});
+
+</script>
