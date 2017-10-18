@@ -64,14 +64,6 @@ function goToUrl(url)
 	if(popupSettingsArray.saveSettings != "false")
 	{
 		goToPage = !checkForChangesMainSettings();
-		if(goToPage)
-		{
-			goToPage = !checkForChangesWatchListPoll();
-			if(goToPage)
-			{
-				goToPage = !checkForChangesMenuSettings();
-			}
-		}
 	}
 	if(goToPage)
 	{
@@ -86,13 +78,7 @@ function goToUrl(url)
 $( document ).ready(function() 
 {
 	refreshSettingsMainVar();
-	refreshSettingsMenuVar();
-	refreshSettingsWatchList();
 	setInterval(poll, 100);
-	$( "#main" ).scroll(function()
-	{
-		highlightTopNavDepends();
-	});
 });
 
 </script>

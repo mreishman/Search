@@ -1,29 +1,3 @@
-/global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
-
-function addRowFunction()
-{
-	try
-	{
-		countOfWatchList++;
-		countOfClicks++;
-		if(countOfWatchList < 10)
-		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-		}
-		else
-		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-		}
-		locationInsert = "newRowLocationForWatchList"+countOfClicks;
-		document.getElementById("numberOfRows").value = countOfWatchList;
-		countOfAddedFiles++;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName = "")
 {
 	try
@@ -151,70 +125,6 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 	}
 }
 
-function checkWatchList()
-{
-	try
-	{
-		var blankValue = false;
-		for (var i = 1; i <= countOfWatchList; i++) 
-		{
-			if(document.getElementsByName("watchListKey"+i)[0].value === "")
-			{
-				blankValue = true;
-			}
-		}
-		if(blankValue && popupSettingsArray.blankFolder === "true")
-		{
-			showNoEmptyFolderPopup();
-			event.preventDefault();
-			event.returnValue = false;
-			return false;
-		}
-		else
-		{
-			displayLoadingPopup();
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function showNoEmptyFolderPopup()
-{
-	try
-	{
-		showPopup();
-		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function checkForChangesWatchListPoll()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function checkForChangesMainSettings()
 {
 	try
@@ -236,35 +146,12 @@ function checkForChangesMainSettings()
 	}
 }
 
-function checkForChangesMenuSettings()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function poll()
 {
 	try
 	{
-		var change = checkForChangesWatchListPoll();
 		var change2 = checkForChangesMainSettings();
-		var change3 = checkForChangesMenuSettings();
-		if(change || change2 || change3)
+		if(change2)
 		{
 			document.getElementById("mainLink").innerHTML = "Main*";
 		}
@@ -272,23 +159,6 @@ function poll()
 		{
 			document.getElementById("mainLink").innerHTML = "Main";
 		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function resetWatchListVars()
-{
-	try
-	{
-		document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
-		watchlistData = $("#settingsMainWatch").serializeArray();
-		countOfWatchList = countOfWatchListStatic;
-		countOfAddedFiles =  countOfAddedFilesStatic;
-		countOfClicks = countOfClicksStatic;
-		locationInsert = locationInsertStatic;
 	}
 	catch(e)
 	{
@@ -309,148 +179,12 @@ function resetSettingsMainVar()
 	}
 }
 
-function resetSettingsMenuVar()
-{
-	try
-	{
-		document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
-		menuData = $("#settingsMenuVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function refreshSettingsMainVar()
 {
 	try
 	{
 		mainData = $("#settingsMainVars").serializeArray();
 		savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function refreshSettingsMenuVar()
-{
-	try
-	{
-		menuData = $("#settingsMenuVars").serializeArray();
-		savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function refreshSettingsWatchList()
-{
-	try
-	{
-		watchlistData = $("#settingsMainWatch").serializeArray();
-		savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
-		countOfWatchListStatic = countOfWatchList;
-		countOfAddedFilesStatic = countOfAddedFiles;
-		countOfClicksStatic = countOfClicks;
-		locationInsertStatic = locationInsert;
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function highlightTopNavDepends()
-{
-	try
-	{
-		var offsetHeight = 0;
-		if(document.getElementById("menu"))
-		{
-			offsetHeight += document.getElementById("menu").offsetHeight;
-		}
-		if(document.getElementById("menu2"))
-		{
-			offsetHeight += document.getElementById("menu2").offsetHeight;
-		}
-		outerHeightMain = $("#settingsMainVars").outerHeight();
-		positionMain = $("#settingsMainVars").position();
-		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
-		{
-			positionMain = $("#settingsMainWatch").position();
-			if((outerHeightMain+positionMain.top-offsetHeight) < 0)
-			{
-				highlightSettingsMenu2Option("menuSettingsMenu2");
-			}
-			else
-			{
-				highlightSettingsMenu2Option("watchListSettingsMenu2");
-			}
-		}
-		else
-		{
-			//check if class is already there before adding
-			highlightSettingsMenu2Option("mainSettingsMenu2");
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function highlightSettingsMenu2Option(option)
-{
-	try
-	{
-		var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
-		for (var i = titles.length - 1; i >= 0; i--)
-		{
-			
-			if(option != titles[i])
-			{
-				removeActiveClass(titles[i]);
-			}
-			else
-			{
-				addActiveClass(titles[i]);
-			}
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function addActiveClass(idToAdd)
-{
-	try
-	{
-		if(!$("#"+idToAdd).hasClass('active'))
-		{
-			$("#"+idToAdd).addClass('active');
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function removeActiveClass(idToAdd)
-{
-	try
-	{
-		if($("#"+idToAdd).hasClass('active'))
-		{
-			$("#"+idToAdd).removeClass('active');
-		}
 	}
 	catch(e)
 	{
