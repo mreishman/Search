@@ -79,7 +79,7 @@ elseif (is_dir("../Monitor"))
 	<?php endif; 
 	require_once('core/php/template/menu.php');?>
 	
-	<div style="z-index: 5;" id="main">
+	<div style="z-index: 5; top: 0;" id="main">
 
 		<div style="height: 100px;">
 		</div>
@@ -97,12 +97,17 @@ elseif (is_dir("../Monitor"))
 			$showNewSearch = true;
 		endif;
 		?>
-		<div style="display: <?php if($showNewSearch){ echo "none" }else{ echo "block" }?> " id='newSearch' onclick='showGrepPopup();'>New Search</div>
+		<div class="containerMain" style="display: <?php if(!$showNewSearch){ echo "none"; }else{ echo "block"; }?> " id="newSearch" >
+			<div onclick="showGrepPopup();" style="width: 100px; height: 100px; margin: 25px; display: inline-block; cursor: pointer;">
+				<img src="core/img/search.png" style="width: 100px; height: 100px;">
+				<p style="width: 100%; text-align: center;">New Grep</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="storage">
 		<div class="container">
-			<div style="width: 80%; margin-left: 10%; background-color: white; min-height: 200px; padding: 5px; margin-bottom: 40px;border: 1px solid black; " id="{{id}}" class="scanBar">
+			<div style="background-color: white;" id="{{id}}" class="scanBar containerMain">
 				<div>
 					<progress style="color: white; background: #000000; width: 100%;" id="{{id}}Progress" value="0" max="1"></progress>
 				</div>

@@ -427,7 +427,7 @@ function styleReturnedData(data, otherData)
 
 function showGrepPopup()
 {
-	//scanDir("/var/www/html/app/", 'test', 'loading-mask');
+	scanDir("/var/www/html/app/", 'test', 'loading-mask');
 }
 
 function deleteSearch(searchToRemove)
@@ -435,7 +435,7 @@ function deleteSearch(searchToRemove)
 	$(searchToRemove).remove();
 
 	//check if no more searches, add back buttons
-	if(false)
+	if($(".containerMain").length === 2)
 	{
 		document.getElementById("newSearch").style.display = "block";
 	}
