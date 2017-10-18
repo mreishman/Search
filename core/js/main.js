@@ -283,6 +283,7 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 {
 	if(arrayOfFolders.constructor !== Array)
 	{
+		document.getElementById("newSearch").style.display = "none";
 		var blank = $("#storage .container").html();
 		var item = blank;
 		item = item.replace(/{{id}}/g, idOfScan);
@@ -318,43 +319,46 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 
 function parseDirectoryData(arrayOfFolders, scanFor, idOfScan, arrayOfFiles, total, count, data)
 {
-	count++;
-	total += data['folders'].length;
-	var currentPercent = ((100*(count/total))/2).toFixed(2);
-	document.getElementById(idOfScan+'Progress').value = currentPercent/100;
-	document.getElementById(idOfScan+'ProgressTxt').innerHTML = currentPercent;
-	arrayOfFolders = arrayOfFolders.concat(data['folders']);
-	arrayOfFiles = arrayOfFiles.concat(data['files']);
-	arrayOfFolders.shift();
-	if(arrayOfFolders.length > 0)
+	if(document.getElementById(idOfScan+'Progress'))
 	{
-		scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count);
-	}
-	else
-	{
-		console.log("END");
-		console.log(arrayOfFiles);
-		arrayOfFiles.sort();
-		console.log(arrayOfFiles);
-		loopThroughFiles(scanFor, "" ,idOfScan, -1, arrayOfFiles);
-	
+		count++;
+		total += data['folders'].length;
+		var currentPercent = ((100*(count/total))/2).toFixed(2);
+		document.getElementById(idOfScan+'Progress').value = currentPercent/100;
+		document.getElementById(idOfScan+'ProgressTxt').innerHTML = currentPercent;
+		arrayOfFolders = arrayOfFolders.concat(data['folders']);
+		arrayOfFiles = arrayOfFiles.concat(data['files']);
+		arrayOfFolders.shift();
+		if(arrayOfFolders.length > 0)
+		{
+			scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count);
+		}
+		else
+		{
+			arrayOfFiles.sort();
+			loopThroughFiles(scanFor, "" ,idOfScan, -1, arrayOfFiles);
+		
+		}
 	}
 }
 
 function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 {
-	var total = arrayOfFiles.length;
-	count++;
-	var currentPercent = (((100*(count/total))/2)+50).toFixed(2);
-	document.getElementById(id+'Progress').value = currentPercent/100;
-	document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
-	if(count < arrayOfFiles.length)
+	if(document.getElementById(id+'Progress'))
 	{
-		phpGrep(pattern,arrayOfFiles[count],id, count, arrayOfFiles);
-	}
-	else
-	{
-		console.log("END");
+		var total = arrayOfFiles.length;
+		count++;
+		var currentPercent = (((100*(count/total))/2)+50).toFixed(2);
+		document.getElementById(id+'Progress').value = currentPercent/100;
+		document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
+		if(count < arrayOfFiles.length)
+		{
+			phpGrep(pattern,arrayOfFiles[count],id, count, arrayOfFiles);
+		}
+		else
+		{
+			console.log("END");
+		}
 	}
 }
 
@@ -423,7 +427,18 @@ function styleReturnedData(data, otherData)
 
 function showGrepPopup()
 {
-	scanDir("/var/www/html/app/", 'test', 'loading-mask');
+	//scanDir("/var/www/html/app/", 'test', 'loading-mask');
+}
+
+function deleteSearch(searchToRemove)
+{
+	$(searchToRemove).remove();
+
+	//check if no more searches, add back buttons
+	if(false)
+	{
+		document.getElementById("newSearch").style.display = "block";
+	}
 }
 
 $(document).ready(function()
@@ -431,8 +446,6 @@ $(document).ready(function()
 	resize();
 	window.onresize = resize;
 	window.onfocus = focus;
-
-	//scanDir("/var/www/html/app/", 'test', 'loading-mask');
 
 	//checkForUpdateMaybe();
 

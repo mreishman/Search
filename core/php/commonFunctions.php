@@ -132,7 +132,6 @@ function getDirContents($dir)
     {
     	if(!$value->isDot())
     	{
-    	
 	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
 	        if(!is_dir($path))
 	        {

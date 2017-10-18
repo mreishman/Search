@@ -61,8 +61,6 @@ elseif (is_dir("../Monitor"))
 	$locationForMonitorIndex = "../Monitor/";
 }
 
-$noSavedSearchShowAddSearch = "<div onclick='showGrepPopup();'>New Search</div>";
-
 ?>
 <!doctype html>
 <head>
@@ -85,19 +83,21 @@ $noSavedSearchShowAddSearch = "<div onclick='showGrepPopup();'>New Search</div>"
 
 		<div style="height: 100px;">
 		</div>
-		<?php 
+		<?php
+		$showNewSearch = false; 
 		if(is_dir("savedSearches/")):
 			$dir = "savedSearches/";
 			$dir = array_diff(scandir($dir), array('..', '.'));
 			if(count($dir) > 0):
 				//show saved stuff
 			else:
-				echo $noSavedSearchShowAddSearch;
+				$showNewSearch = true;
 			endif;
 		else:
-			echo $noSavedSearchShowAddSearch;
+			$showNewSearch = true;
 		endif;
 		?>
+		<div style="display: <?php if($showNewSearch){ echo "none" }else{ echo "block" }?> " id='newSearch' onclick='showGrepPopup();'>New Search</div>
 	</div>
 
 	<div id="storage">
@@ -106,8 +106,8 @@ $noSavedSearchShowAddSearch = "<div onclick='showGrepPopup();'>New Search</div>"
 				<div>
 					<progress style="color: white; background: #000000; width: 100%;" id="{{id}}Progress" value="0" max="1"></progress>
 				</div>
-				<div style="color: black; width: 100%; text-align: center;" id="{{id}}Title">
-					<h3> <span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%</h3>
+				<div style="color: black; width: 100%; text-align: left;" id="{{id}}Title">
+					<h3><span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%<div style="float: right;"><img onclick="deleteSearch({{id}});" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"></div></h3>
 				</div>
 				<div id="{{id}}FoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
 				</div>
