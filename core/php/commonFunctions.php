@@ -124,36 +124,37 @@ function phpGrep($objectSent)
 
 function getDirContents($dir)
 {
-    $files = scandir($dir);
+    $files = new DirectoryIterator($dir);
     $skipFolders = array('.git');
     $skipFiles = array('.png','.jpg','.jpeg');
-    //$files = array_diff(scandir($dir), array('..', '.'));
     $results = ['files' => array(), 'folders' => array()];
     foreach($files as $key => $value)
     {
-    	//if($value != "." && $value != "..")
+    	if(!$value->isDot())
+    	{
     	
-        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
-        if(!is_dir($path))
-        {
-        	$skip = false;
-        	foreach ($skipFiles as $key)
-        	{
-        		if(strpos($path, $key))
-        		{
-        			$skip = true;
-        			break;
-        		}
-        	}
-        	if(!$skip)
-        	{
-            	array_push($results['files'], $path);
-            }
-        }
-        else if($value != "." && $value != "..")
-        {
-            array_push($results['folders'], $path);
-        }
+	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+	        if(!is_dir($path))
+	        {
+	        	$skip = false;
+	        	foreach ($skipFiles as $key)
+	        	{
+	        		if(strpos($path, $key))
+	        		{
+	        			$skip = true;
+	        			break;
+	        		}
+	        	}
+	        	if(!$skip)
+	        	{
+	            	array_push($results['files'], $path);
+	            }
+	        }
+	        else
+	        {
+	            array_push($results['folders'], $path);
+	        }
+	    }
     }
     return $results;
 }

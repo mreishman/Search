@@ -61,6 +61,8 @@ elseif (is_dir("../Monitor"))
 	$locationForMonitorIndex = "../Monitor/";
 }
 
+$noSavedSearchShowAddSearch = "<div onclick='showGrepPopup();'>New Search</div>";
+
 ?>
 <!doctype html>
 <head>
@@ -83,7 +85,19 @@ elseif (is_dir("../Monitor"))
 
 		<div style="height: 100px;">
 		</div>
-
+		<?php 
+		if(is_dir("savedSearches/")):
+			$dir = "savedSearches/";
+			$dir = array_diff(scandir($dir), array('..', '.'));
+			if(count($dir) > 0):
+				//show saved stuff
+			else:
+				echo $noSavedSearchShowAddSearch;
+			endif;
+		else:
+			echo $noSavedSearchShowAddSearch;
+		endif;
+		?>
 	</div>
 
 	<div id="storage">
@@ -105,31 +119,16 @@ elseif (is_dir("../Monitor"))
 	<script>
 
 		<?php
-		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
-		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
-		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
-		echo "var pollingRate = ".$pollingRate.";";
-		echo "var backgroundPollingRate = ".$backgroundPollingRate.";";
-		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
-		echo "var pollForceTrue = ".$pollForceTrue.";";
-		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
-		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
 		var enableLogging = "<?php echo $enableLogging; ?>";
-		var groupByType = "<?php echo $groupByType; ?>";
-		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
-		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
-		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
-		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
 
 	</script>

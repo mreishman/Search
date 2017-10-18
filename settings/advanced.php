@@ -26,32 +26,6 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
-		<div class="settingsHeader">
-			Development  
-			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevAdvanced();" id="resetChangesDevAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					Enable Development Tools
-					<div class="selectDiv">
-						<select name="developmentTabEnabled">
-  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</form>
 	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Error / Crash Info
@@ -132,9 +106,11 @@ require_once('../core/php/updateCheck.php');
 							</select>
 					</li>
 				</form>
-				<li>
-					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
-				</li>
+				<?php if($configStatic['version'] != "1.0"): ?>
+					<li>
+						<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
+					</li>
+				<?php endif; ?>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 					<li>
 						<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a> <i style="font-size: 75%;">*Could take up to 60 seconds to save.</i>

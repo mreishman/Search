@@ -24,7 +24,6 @@ var refreshPauseActionVar;
 var userPaused = false;
 var refreshing = false;
 var percent = 0;
-var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
 var timer;
 
@@ -420,6 +419,11 @@ function styleReturnedData(data, otherData)
 			$("#"+idToAttach).append(tableOutput);
 		}
 	}
+}
+
+function showGrepPopup()
+{
+	scanDir("/var/www/html/app/", 'test', 'loading-mask');
 }
 
 $(document).ready(function()

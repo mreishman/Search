@@ -15,8 +15,6 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/themeFunctions.php');
-require_once('../top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -31,8 +29,6 @@ $withLogHog = $monitorStatus['withLogHog'];
 
 	<div id="main">
 		<?php require_once('../core/php/template/themeMain.php'); ?>
-		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>
-		<?php require_once('../core/php/template/folderGroupColor.php'); ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

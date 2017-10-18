@@ -6,6 +6,7 @@ $menuItems = array();
 $count = 0;
 $modifier = "./";
 $imageModifier = "../";
+$boolOnMainPage = false;
 
 if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false) || (strpos($URI, 'about.php') !== false) || ((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)))
 {
@@ -13,9 +14,10 @@ if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== fal
 }
 else
 {
+	$boolOnMainPage = true;
 	$imageModifier = "./";
 	$modifier = "./settings/";
-	$menuItems[$count] = array("title" => "New Grep" , "action" => "grep()", "image" => "core/img/search.png");
+	$menuItems[$count] = array("title" => "New Grep" , "action" => "toggleMenu();showGrepPopup();", "image" => "core/img/search.png");
 }
 $count++;
 
@@ -86,7 +88,39 @@ elseif(file_exists('../../loghog/index.php'))
 	$menuItems[$count] = array("title" => "Loghog" , "action" => "window.location.href =  '../../loghog/';", "image" => "core/img/loghog.png");
 	$count++;
 }
-	
+
+//check for monitor
+
+if(file_exists('../monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../../monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../Log-Hog/monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../../Log-Hog/monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../loghog/monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../loghog/monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../../loghog/monitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../loghog/monitor/';", "image" => "core/img/task-manager.png");
+	$count++;
+}	
 
 
 ?>
@@ -118,6 +152,9 @@ elseif(file_exists('../../loghog/index.php'))
 	        <span class="icon-bar"></span>
 	    </a>
 	</div>
+	<?php if($boolOnMainPage): ?>
+		Notifications Icon
+	<?php endif; ?>
 	<?php if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false)): ?>
 		<a <?php if(strpos($URI, 'main.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./main.php');" <?php endif;?> > Main Settings </a>
 		<a <?php if(strpos($URI, 'advanced.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./advanced.php');" <?php endif;?> > Advanced </a>
