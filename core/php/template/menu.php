@@ -7,7 +7,7 @@ $count = 0;
 $modifier = "./";
 $imageModifier = "../";
 
-if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'about.php') !== false) || ((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)))
+if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false) || (strpos($URI, 'about.php') !== false) || ((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)))
 {
 	$menuItems[$count] = array("title" => "Back" , "action" => "goToUrl('../index.php')", "image" => "core/img/backArrow.png");
 }
@@ -118,9 +118,10 @@ elseif(file_exists('../../loghog/index.php'))
 	        <span class="icon-bar"></span>
 	    </a>
 	</div>
-	<?php if(strpos($URI, 'main.php') !== false): ?>
-		<a id="mainSettingsMenu2" onclick="goToUrl('#settingsMainVars');" class="active" > Main Settings </a>
-		<a id="watchListSettingsMenu2" onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
+	<?php if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false)): ?>
+		<a <?php if(strpos($URI, 'main.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./main.php');" <?php endif;?> > Main Settings </a>
+		<a <?php if(strpos($URI, 'advanced.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./advanced.php');" <?php endif;?> > Advanced </a>
+		<a <?php if(strpos($URI, 'devTools.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./devTools.php');" <?php endif;?> > Dev Tools </a>
 	<?php endif; ?>
 	<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
 		<a <?php if(strpos($URI, 'update.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./update.php');"  <?php endif;?> > Update </a>

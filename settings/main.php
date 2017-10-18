@@ -56,7 +56,7 @@ require_once('../core/php/commonFunctions.php');
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
  	var savedInnerHtmlMenu;
-
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
  	var countOfWatchListStatic = countOfWatchList;
 	var countOfAddedFilesStatic = countOfAddedFiles;
 	var countOfClicksStatic = countOfClicks;

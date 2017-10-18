@@ -14,8 +14,6 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-require_once('../top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -54,82 +52,6 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
-	<form id="pollAdvanced" action="../core/php/settingsSave.php" method="post">
-		<div class="settingsHeader">
-			Advanced Poll Settings  
-			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsPollAdvanced();" id="resetChangesPollAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					Poll refresh all data every 
-					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
-					poll requests
-					<div class="selectDiv">
-						<select name="pollRefreshAllBool">
-	  						<option <?php if($pollRefreshAllBool == 'true'){echo "selected";} ?> value="true">True</option>
-	  						<option <?php if($pollRefreshAllBool == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					Force poll refresh after 
-					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
-					skipped poll requests
-					<div class="selectDiv">
-						<select name="pollForceTrueBool">
-	  						<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
-	  						<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</form>
-	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
-		<div class="settingsHeader">
-			Logging Information 
-			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsLoggingDisplay();" id="resetChangesLoggingDisplayHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					File Info Logging
-					<div class="selectDiv">
-						<select name="enableLogging">
-  							<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-					<br>
-					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
-				</li>
-				<li>
-					Poll Time Logging
-					<div class="selectDiv">
-						<select name="enablePollTimeLogging">
-  							<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($enablePollTimeLogging == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</form>
 	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Error / Crash Info
@@ -162,7 +84,6 @@ $withLogHog = $monitorStatus['withLogHog'];
 						</select>
 					</div>
 				</li>
-				<img src="../core/img/exampleErrorJS.png" height="200px;">
 			</ul>
 		</div>
 	</form>
@@ -210,21 +131,9 @@ $withLogHog = $monitorStatus['withLogHog'];
 	  							<option selected value="true">True</option>
 							</select>
 					</li>
-					<?php if($withLogHog == 'true'): ?>
-					<li>
-						*Doesn't include monitor config settings
-					</li>
-					<?php endif; ?>
 				</form>
 				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
-				</li>
-				<li>
-				<?php if($withLogHog == 'true'): ?>
-					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
-				<?php else: ?>
-					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
-				<?php endif; ?>
 				</li>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 					<li>

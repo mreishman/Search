@@ -70,7 +70,6 @@ elseif (is_dir("../Monitor"))
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS);
-		echo loadVisibilityJS(baseURL());
 	?>
 </head>
 <body>

@@ -1,6 +1,6 @@
 <form onsubmit="checkWatchList()" id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
 <div class="settingsHeader">
-	WatchList
+	Saved Searches
 	<div class="settingsHeaderButtons">
 		<a onclick="resetWatchListVars();" id="resetChangesSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>

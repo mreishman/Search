@@ -1,48 +1,4 @@
 /global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
-function showOrHideLogTrimSubWindow()
-{
-	try
-	{
-		var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
-
-		if(valueToSeeIfShowOrHideSubWindowLogTrim === "true")
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "block";
-		}
-		else
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "none";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-function changeDescriptionLineSize()
-{
-	try
-	{
-		var valueForDesc = document.getElementById("logTrimTypeToggle").value;
-
-		if (valueForDesc === "lines")
-		{
-			document.getElementById("logTrimTypeText").innerHTML = "Lines";
-			document.getElementById("LiForlogTrimSize").style.display = "none";
-		}
-		else if (valueForDesc === "size")
-		{
-			document.getElementById("logTrimTypeText").innerHTML = "Size";
-			document.getElementById("LiForlogTrimSize").style.display = "block";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
 
 function addRowFunction()
 {
@@ -161,19 +117,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 		eventThrowException(e)
 	}
 }	
-function showOrHidePopupSubWindow()
-{
-	try
-	{
-		var valueForPopup = document.getElementById("popupSelect");
-		var valueForVars = document.getElementById("settingsPopupVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
+
 function showOrHideUpdateSubWindow()
 {
 	try
@@ -187,6 +131,7 @@ function showOrHideUpdateSubWindow()
 		eventThrowException(e)
 	}
 }
+
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
@@ -205,6 +150,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 		eventThrowException(e)
 	}
 }
+
 function checkWatchList()
 {
 	try
@@ -234,6 +180,7 @@ function checkWatchList()
 		eventThrowException(e)
 	}
 }
+
 function showNoEmptyFolderPopup()
 {
 	try
