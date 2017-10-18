@@ -121,7 +121,6 @@ elseif(file_exists('../../loghog/index.php'))
 	<?php if(strpos($URI, 'main.php') !== false): ?>
 		<a id="mainSettingsMenu2" onclick="goToUrl('#settingsMainVars');" class="active" > Main Settings </a>
 		<a id="watchListSettingsMenu2" onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
-		<a id="menuSettingsMenu2" onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
 	<?php endif; ?>
 	<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
 		<a <?php if(strpos($URI, 'update.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./update.php');"  <?php endif;?> > Update </a>

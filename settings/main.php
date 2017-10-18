@@ -33,7 +33,6 @@ require_once('../core/php/commonFunctions.php');
 	<div id="main">
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
-		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
@@ -44,21 +43,16 @@ require_once('../core/php/commonFunctions.php');
 <?php else: ?>
 	<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 	<script type="text/javascript">
-	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	var mainData;
 	var watchlistData;
 	var menuData;
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var fileArrayKeys = Object.keys(fileArray);
 	var countOfWatchList = fileArrayKeys.length;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
-	var logTrimType = "<?php echo $logTrimType; ?>";
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
  	var savedInnerHtmlMenu;
@@ -67,15 +61,6 @@ require_once('../core/php/commonFunctions.php');
 	var countOfAddedFilesStatic = countOfAddedFiles;
 	var countOfClicksStatic = countOfClicks;
 	var locationInsertStatic = locationInsert;
-
-	if(logTrimType == 'lines')
-	{
-		document.getElementById('logTrimTypeText').innerHTML = "Lines";
-	}
-	else if (logTrimType == 'size')
-	{
-		document.getElementById('logTrimTypeText').innerHTML = "Size";
-	}
 
 	function goToUrl(url)
 	{
