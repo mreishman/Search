@@ -53,8 +53,8 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Step 1 of <?php echo $counterSteps; ?></h1>
 	</div>
 
-	<p style="padding: 10px;">Watch List: These are the files/folder Log-Hog will track. Please enter in some of the folders you would like.</p>
-	<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
+	<p style="padding: 10px;">Main Settings:</p>
+	<?php require_once('../core/php/template/mainVars.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<?php if($counterSteps == 1): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>

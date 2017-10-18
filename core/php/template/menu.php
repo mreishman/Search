@@ -93,10 +93,10 @@ elseif(file_exists('../../loghog/index.php'))
 <div id="menuMain" style="width: 100%; height: 100%; background-color: rgba(0,0,0,.85); display: none; position: absolute; z-index: 20; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); overflow-y: scroll;">
 	<div style="border-bottom: 1px dotted grey; height: 64px; z-index: 21; padding: .5em 1em; background-color: black;">
 		<div onclick="toggleMenu();" class="nav-toggle pull-right">
-			<a class="show-sidebar" id="hide">
-		    	<span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
+			<a class="show-sidebar" id="show">
+		    	<span class="icon-bar-top"></span>
+		        <span class="icon-bar-mid"></span>
+		        <span class="icon-bar-bot"></span>
 		    </a>
 		</div>
 	</div>
