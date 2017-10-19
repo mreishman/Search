@@ -156,10 +156,15 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 	</div>
 	<?php if($boolOnMainPage): ?>
 		<div style="display: inline-block;">
-			<img onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer;">
+			<img id="notificationNotClicked" onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer;">
+			<img id="notificationClicked" onclick="toggleNotifications();" src="core/img/notificationFull.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer; display: none;">
 		</div>
-		<div id="notificationHolder" style="display: none; margin-top: 23px; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;">
+		<div id="notifications" style="margin-top: 10px; display: none;">
+			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
+			<div id="notificationHolder" style="display: block; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;">
 		</div>
+		</div>
+		
 	<?php endif; ?>
 	<?php if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false)): ?>
 		<a <?php if(strpos($URI, 'main.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./main.php');" <?php endif;?> > Main Settings </a>

@@ -460,14 +460,14 @@ function deleteSearch(searchToRemove)
 
 function toggleNotifications()
 {
-	if(document.getElementById("notificationHolder").style.display === "block")
+	if(document.getElementById("notifications").style.display === "block")
 	{
-		document.getElementById("notificationHolder").style.display = "none";
+		document.getElementById("notifications").style.display = "none";
 	}
 	else
 	{
 		showNotifications();
-		document.getElementById("notificationHolder").style.display = "block";
+		document.getElementById("notifications").style.display = "block";
 	}
 }
 
