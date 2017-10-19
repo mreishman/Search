@@ -125,48 +125,71 @@ function returnLinesOfFile($position, $padding, $lastLine)
 
 }
 
-function getDirContents($dir)
+function getDirContents($dirArr)
 {
-    $files = array_diff(scandir($dir), array('..', '.'));
+    
     $results = ['files' => array(), 'folders' => array()];
     $skipFolders = array('.git' => 1);
     $skipFileTypes = array('.png','.jpg','.jpeg');
     $skipFiles = array('placeholder.txt' => 1);
     $skipExactFolderPaths = array("/var/www/html/media" => 1);
-    if($files)
+
+    if(!is_array($dirArr))
     {
-	    foreach($files as $key => $value)
-	    {
-	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
-	        if(!is_dir($path))
-	        {
-	        	if(!isset($skipFiles[$value]))
-	        	{
-		        	$skip = false;
-		        	foreach ($skipFileTypes as $key2)
-		        	{
-		        		if(strpos($value, $key2))
-		        		{
-		        			$skip = true;
-		        			break;
-		        		}
-		        	}
-		        	if(!$skip)
-		        	{
-		            	array_push($results['files'], $path);
-		            }
-		        }
-	        }
-	        else
-	        {
-	        	if(!isset($skipExactFolderPaths[$path]) && !isset($skipFolders[$value]))
-	        	{
-	            	array_push($results['folders'], $path);
-	        	}
-	        }
-	    }
+    	$dirArr = [$dirArr];
+    }
+    foreach ($dirArr as $dir)
+   	{
+   		if(is_dir($dir))
+   		{
+	    	$files = array_diff(scandir($dir), array('..', '.'));
+		    if($files)
+		    {
+			    foreach($files as $key => $value)
+			    {
+			        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+			        if(!is_dir($path))
+			        {
+			        	if(!isset($skipFiles[$value]))
+			        	{
+				        	$skip = false;
+				        	foreach ($skipFileTypes as $key2)
+				        	{
+				        		if(strpos($value, $key2))
+				        		{
+				        			$skip = true;
+				        			break;
+				        		}
+				        	}
+				        	if(!$skip)
+				        	{
+				            	array_push($results['files'], $path);
+				            }
+				        }
+			        }
+			        else
+			        {
+			        	if(!isset($skipExactFolderPaths[$path]) && !isset($skipFolders[$value]))
+			        	{
+			        		if(!is_dir_empty($dir))
+			        		{
+			            		array_push($results['folders'], $path);
+			        		}
+			        	}
+			        }
+			    }
+			}
+		}
 	}
     return $results;
+}
+
+function is_dir_empty($dir)
+{
+	if(is_readable($dir))
+	{
+		return (count(scandir($dir)) == 2);
+	}
 }
 
 function loadSentryData($sendCrashInfoJS)

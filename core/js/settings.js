@@ -1,19 +1,11 @@
 function resize()
 {
-	var offsetHeight = 0;
-	if(document.getElementById("menu"))
+	var targetHeight = window.innerHeight - $("#menu").outerHeight();
+	console.log(targetHeight);
+	if($("#main").outerHeight() !== targetHeight)
 	{
-		offsetHeight += document.getElementById("menu").offsetHeight;
+		$("#main").outerHeight(targetHeight);
 	}
-	if(document.getElementById("menu2"))
-	{
-		offsetHeight += document.getElementById("menu2").offsetHeight;
-	}
-	var heightOfMain = window.innerHeight - offsetHeight;
-	var heightOfMainStyle = "height:";
-	heightOfMainStyle += heightOfMain;
-	heightOfMainStyle += "px";
-	document.getElementById("main").setAttribute("style",heightOfMainStyle);
 }
 
 var idForm = "";

@@ -50,18 +50,10 @@ function resize()
 {
 	try
 	{
-	    var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
-		if(enablePollTimeLogging !== "false")
-		{
-			targetHeight -= 25;
-		}
+	    var targetHeight = window.innerHeight - $("#menu").outerHeight();
 		if($("#main").outerHeight() !== targetHeight)
 		{
 			$("#main").outerHeight(targetHeight);
-		}
-		if($("#main").css("bottom") !== $("#title").outerHeight() + "px")
-		{
-			$("#main").css("bottom", $("#title").outerHeight() + "px");
 		}
 	}
 	catch(e)
@@ -293,14 +285,24 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 	}
 	try
 	{
-		var directory = arrayOfFolders[0]; 
+		//send number of folders, max 3;
+		var lengthOfFolders = arrayOfFolders.length;
+		if(lengthOfFolders > 5)
+		{
+			lengthOfFolders = 5;
+		}
+		var arrayToSend = new Array();
+		for (var i = 0; i < lengthOfFolders; i++)
+		{
+			arrayToSend.push(arrayOfFolders[i]); 
+		}
 		var urlForSend = "core/php/getDirInfo.php?format=json";
 		var data = {arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data: {dir: directory},
+				data: {dir: arrayToSend},
 				type: "POST",
 				success(data)
 				{
@@ -547,13 +549,14 @@ function updateNotificationCount()
 function addNotification(notificationArray)
 {
 
-	var currentId = notifications.length+1;
-	//no notifications to show
+	var currentId = notifications.length;
+
 	arrayInternalNotifications[currentId] = new Array();
 	arrayInternalNotifications[currentId]["id"] = currentId;
 	arrayInternalNotifications[currentId]["name"] = notificationArray["name"];
 	arrayInternalNotifications[currentId]["time"] = formatAMPM(new Date());
 	arrayInternalNotifications[currentId]["action"] = notificationArray["action"];
+
 	updateNotificationCount();
 	showNotifications();
 }
@@ -563,6 +566,10 @@ $(document).ready(function()
 	resize();
 	window.onresize = resize;
 	window.onfocus = focus;
+	if (typeof addUpdateNotification == 'function')
+	{
+		addUpdateNotification();
+	}
 	updateNotificationCount();
 	//checkForUpdateMaybe();
 });

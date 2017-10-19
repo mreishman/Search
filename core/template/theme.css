@@ -6,6 +6,15 @@ body {
 	margin: 0;
 }
 
+.containerMain{
+	width: 80%;
+	margin-left: 10%;
+	min-height: 200px;
+	padding: 5px;
+	margin-bottom: 40px;
+	border: 1px solid black;
+}
+
 .nav-toggle {
 	display: inline-block;
 	background-color: transparent;
@@ -72,13 +81,14 @@ div {
 }
 
 #menu {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	z-index: 20;
 	padding: .5em 1em;
-	max-height: 300px;
-	overflow-y: auto;
-	min-height: 64px;
+	height: 64px;
+	border-bottom: 1px dotted grey;
+	background-color: #222;
+	display: block;
 }
 
 #menu2 {

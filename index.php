@@ -146,11 +146,20 @@ elseif (is_dir("../Monitor"))
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
-		if($levelOfUpdate !== 0)
-		{
-			// Update notifications
-		}
-		?>
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion): 
+			if($updateNoticeMeter === "every" || $levelOfUpdate > 1): ?>
+				function addUpdateNotification()
+				{
+					var currentId = notifications.length;
+
+					notifications[currentId] = new Array();
+					notifications[currentId]["id"] = currentId;
+					notifications[currentId]["name"] = "New update available: <?php echo $configStatic['newestVersion'];?>";
+					notifications[currentId]["time"] = formatAMPM(new Date());
+					notifications[currentId]["action"] = "update();";
+				}
+			<?php endif; 
+		endif; ?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
 		var enableLogging = "<?php echo $enableLogging; ?>";
