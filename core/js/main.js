@@ -284,13 +284,11 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 	if(arrayOfFolders.constructor !== Array)
 	{
 		document.getElementById("newSearch").style.display = "none";
-		var blank = $("#storage .container").html();
-		var item = blank;
+		var item = $("#storage .container").html();
 		item = item.replace(/{{id}}/g, idOfScan);
 		item = item.replace(/{{folder}}/g, arrayOfFolders);
 		item = item.replace(/{{search}}/g, scanFor);
-		var main = $("#main");
-		main.append(item);
+		$("#main").append(item);
 		arrayOfFolders = [arrayOfFolders];
 	}
 	try
@@ -337,7 +335,6 @@ function parseDirectoryData(arrayOfFolders, scanFor, idOfScan, arrayOfFiles, tot
 		{
 			arrayOfFiles.sort();
 			loopThroughFiles(scanFor, "" ,idOfScan, -1, arrayOfFiles);
-		
 		}
 	}
 }
@@ -461,11 +458,111 @@ function deleteSearch(searchToRemove)
 	}
 }
 
+function toggleNotifications()
+{
+	if(document.getElementById("notificationHolder").style.display === "block")
+	{
+		document.getElementById("notificationHolder").style.display = "none";
+	}
+	else
+	{
+		showNotifications();
+		document.getElementById("notificationHolder").style.display = "block";
+	}
+}
+
+function showNotifications()
+{
+	var arrayInternalNotifications = new Array();
+	if(notifications.length < 1)
+	{
+		//no notifications to show
+		arrayInternalNotifications[0] = new Array();
+		arrayInternalNotifications[0]["id"] = 0;
+		arrayInternalNotifications[0]["name"] = "No Notifications to Display";
+		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
+		arrayInternalNotifications[0]["action"] = "";
+		
+	}
+	else
+	{
+		arrayInternalNotifications = notifications;
+	}
+
+	displayNotifications(arrayInternalNotifications);
+
+}
+
+function clearAllNotifications()
+{
+	$("#notificationHolder").empty();
+}
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function displayNotifications(notificationsArray)
+{
+	clearAllNotifications();
+	for (var i = notificationsArray.length - 1; i >= 0; i--)
+	{
+		var blank = $("#storage .notificationContainer").html();
+		var item = blank;
+		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
+		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
+		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
+		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
+		$("#notificationHolder").append(item);
+	}
+	$("#notificationHolder").append($("#storage .notificationButtons").html());
+}
+
+function removeAllNotifications()
+{
+	notifications = new Array();
+	showNotifications();
+}
+
+function removeNotification(idToRemove)
+{
+	//remove from array
+
+	//re-run notification display
+	showNotifications();
+}
+
+function updateNotificationCount()
+{
+	var currentCount = notifications.length;
+}
+
+function addNotification(notificationArray)
+{
+
+	var currentId = notifications.length+1;
+	//no notifications to show
+	arrayInternalNotifications[currentId] = new Array();
+	arrayInternalNotifications[currentId]["id"] = currentId;
+	arrayInternalNotifications[currentId]["name"] = notificationArray["name"];
+	arrayInternalNotifications[currentId]["time"] = formatAMPM(new Date());
+	arrayInternalNotifications[currentId]["action"] = notificationArray["action"];
+	updateNotificationCount();
+	showNotifications();
+}
+
 $(document).ready(function()
 {
 	resize();
 	window.onresize = resize;
 	window.onfocus = focus;
-
+	updateNotificationCount();
 	//checkForUpdateMaybe();
 });

@@ -139,6 +139,9 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 		<div style="display: inline-block; width: 150px; height: 150px; margin: 75px; z-index: 25;">
 			<img src="<?php echo $imageModifier.$value['image'];?>" style="width: 120px; height: 120px; margin-left: 15px;" >
 			<p style="width: 100%; text-align: center; margin: 0;" ><?php echo $value['title'];?></p>
+			<?php if($menuItem === "Update"):?>
+				<?php  if($levelOfUpdate == 1){echo '<img src="'.$imageModifier.'core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="'.$imageModifier.'core/img/redWarning.png" height="10px">';} ?>
+			<?php endif; ?>
 		</div>
 		</a>
 	<?php endforeach; ?>
@@ -153,7 +156,9 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 	</div>
 	<?php if($boolOnMainPage): ?>
 		<div style="display: inline-block;">
-			<img src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px;">
+			<img onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer;">
+		</div>
+		<div id="notificationHolder" style="display: none; margin-top: 23px; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;">
 		</div>
 	<?php endif; ?>
 	<?php if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false)): ?>
