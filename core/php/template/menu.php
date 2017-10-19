@@ -23,11 +23,11 @@ $count++;
 
 if(strpos($URI, 'about.php') !== false)
 {
-	$menuItems[$count] = array("title" => "About" , "action" => "", "image" => "");
+	$menuItems[$count] = array("title" => "About" , "action" => "", "image" => "core/img/info.png");
 }
 else
 {
-	$menuItems[$count] = array("title" => "About" , "action" => "window.location = '".$modifier."about.php'", "image" => "");
+	$menuItems[$count] = array("title" => "About" , "action" => "window.location = '".$modifier."about.php'", "image" => "core/img/info.png");
 }
 $count++;
 
@@ -153,7 +153,9 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 	    </a>
 	</div>
 	<?php if($boolOnMainPage): ?>
-		Notifications Icon
+		<div style="display: inline-block;">
+			<img src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px;">
+		</div>
 	<?php endif; ?>
 	<?php if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false)): ?>
 		<a <?php if(strpos($URI, 'main.php') !== false): ?> class='active' <?php else: ?>   onclick="goToUrl('./main.php');" <?php endif;?> > Main Settings </a>
