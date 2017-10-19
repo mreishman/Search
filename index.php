@@ -81,7 +81,7 @@ elseif (is_dir("../Monitor"))
 	
 	<div style="z-index: 5; top: 0;" id="main">
 
-		<div style="height: 100px;">
+		<div style="height: 100px; z-index: 5;">
 		</div>
 		<?php
 		$showNewSearch = false; 

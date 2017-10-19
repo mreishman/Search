@@ -143,7 +143,7 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 		</a>
 	<?php endforeach; ?>
 </div>
-<div id="menuHolder" style="z-index: 19; border-bottom: 1px dotted grey; background-color: #222;" class="backgroundForMenus" id="menu">
+<div id="menuHolder" style="z-index: 19; border-bottom: 1px dotted grey; background-color: #222; height: 64px; padding: .5em 1em; display: block; position: fixed; width: 100%;" class="backgroundForMenus" id="menu">
 	<div onclick="toggleMenu();" class="nav-toggle pull-right">
 		<a class="show-sidebar" id="show">
 	    	<span class="icon-bar"></span>
