@@ -361,7 +361,7 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		}
 		else
 		{
-			console.log("END");
+			document.getElementById(id+"SaveSearch").style.display = "inline-block";
 		}
 	}
 }
@@ -431,7 +431,23 @@ function styleReturnedData(data, otherData)
 
 function showGrepPopup()
 {
-	scanDir("/var/www/html/app/", 'test', 'loading-mask');
+	document.getElementById('newGrep').style.display = "block";
+	//scanDir("/var/www/html/app/", "Search"+counter, 'loading-mask');
+}
+
+function hideNewGrep()
+{
+	document.getElementById('newGrep').style.display = "none";
+}
+
+function scanDirCreate()
+{
+	hideNewGrep();
+	var directoryInput = document.getElementById('directoryInput').value;
+	var idForSearch = 'Search'+counter;
+	var searchInput = document.getElementById('searchInput').value;
+	scanDir(directoryInput, idForSearch, searchInput);
+	counter++;
 }
 
 function deleteSearch(searchToRemove)
@@ -452,5 +468,4 @@ $(document).ready(function()
 	window.onfocus = focus;
 
 	//checkForUpdateMaybe();
-
 });

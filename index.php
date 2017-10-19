@@ -105,6 +105,13 @@ elseif (is_dir("../Monitor"))
 		</div>
 	</div>
 
+	<div id="newGrep" style="position: absolute; left: 5%; right: 5%; top: 10%; bottom: 10%; background-color: rgba(15,15,15,.9); border: 1px solid white; z-index: 10; display: none; box-shadow: 5px 5px 5px rgba(0,0,0,.5); backdrop-filter: blur(10px);" >
+		Directory: <input id="directoryInput" type="text" name="directory" style="width: 400px;" >
+		Search For: <input id="searchInput" type="text" name="searchFor" style="width: 400px;">
+		<button onclick="scanDirCreate();">Run Grep</button>
+		<button onclick="hideNewGrep();">Cancel</button>
+	</div>
+
 	<div id="storage">
 		<div class="container">
 			<div style="background-color: white;" id="{{id}}" class="scanBar containerMain">
@@ -135,6 +142,7 @@ elseif (is_dir("../Monitor"))
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
+		var counter = 1;
 
 	</script>
 	<?php readfile('core/html/popup.html') ?>

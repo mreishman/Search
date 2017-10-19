@@ -67,6 +67,7 @@ function phpGrep($objectSent)
 		$grepResults = explode(PHP_EOL, $grepResults);
 		$subArray = array("data" => array(), "positionArray" => array());
 		$file =  file($objectSent['file']);
+		$grepResultsCount = count($grepResults);
 		foreach ($grepResults as $result)
 		{
 			$positionArray = explode(":", $result);
@@ -104,7 +105,6 @@ function phpGrep($objectSent)
 
 				array_push($subArray['data'], $subSubArray);
 				array_push($subArray['positionArray'], array($setFirstNum, ((int)($positionArray[1])-1)));
-
 			}
 			else
 			{
@@ -118,6 +118,11 @@ function phpGrep($objectSent)
 	}
 
 	return $returnArray;
+}
+
+function returnLinesOfFile($position, $padding, $lastLine)
+{
+
 }
 
 function getDirContents($dir)
