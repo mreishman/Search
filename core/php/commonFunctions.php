@@ -61,13 +61,11 @@ function phpGrep($objectSent)
 {
 	$returnArray = array();
 	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
-	$grepResults = explode(PHP_EOL, $grepResults);
 	$defaultPadding = 3; //lines +/- of padding for around found thing.
-	if($grepResults && $grepResults !== "" && $grepResults !== array(""))
+	if($grepResults)
 	{
-		$subArray = array();
-		$subArray['data'] = array();
-		$subArray['positionArray'] = array();
+		$grepResults = explode(PHP_EOL, $grepResults);
+		$subArray = array("data" => array(), "positionArray" => array());
 		$file =  file($objectSent['file']);
 		foreach ($grepResults as $result)
 		{
@@ -124,37 +122,45 @@ function phpGrep($objectSent)
 
 function getDirContents($dir)
 {
-    $files = new DirectoryIterator($dir);
-    $skipFolders = array('.git');
-    $skipFiles = array('.png','.jpg','.jpeg');
+    $files = array_diff(scandir($dir), array('..', '.'));
     $results = ['files' => array(), 'folders' => array()];
-    foreach($files as $key => $value)
+    $skipFolders = array('.git' => 1);
+    $skipFileTypes = array('.png','.jpg','.jpeg');
+    $skipFiles = array('placeholder.txt' => 1);
+    $skipExactFolderPaths = array("/var/www/html/media" => 1);
+    if($files)
     {
-    	if(!$value->isDot())
-    	{
+	    foreach($files as $key => $value)
+	    {
 	        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
 	        if(!is_dir($path))
 	        {
-	        	$skip = false;
-	        	foreach ($skipFiles as $key)
+	        	if(!isset($skipFiles[$value]))
 	        	{
-	        		if(strpos($path, $key))
-	        		{
-	        			$skip = true;
-	        			break;
-	        		}
-	        	}
-	        	if(!$skip)
-	        	{
-	            	array_push($results['files'], $path);
-	            }
+		        	$skip = false;
+		        	foreach ($skipFileTypes as $key2)
+		        	{
+		        		if(strpos($value, $key2))
+		        		{
+		        			$skip = true;
+		        			break;
+		        		}
+		        	}
+		        	if(!$skip)
+		        	{
+		            	array_push($results['files'], $path);
+		            }
+		        }
 	        }
 	        else
 	        {
-	            array_push($results['folders'], $path);
+	        	if(!isset($skipExactFolderPaths[$path]) && !isset($skipFolders[$value]))
+	        	{
+	            	array_push($results['folders'], $path);
+	        	}
 	        }
 	    }
-    }
+	}
     return $results;
 }
 

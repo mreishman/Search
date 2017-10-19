@@ -112,7 +112,7 @@ elseif (is_dir("../Monitor"))
 					<progress style="color: white; background: #000000; width: 100%;" id="{{id}}Progress" value="0" max="1"></progress>
 				</div>
 				<div style="color: black; width: 100%; text-align: left;" id="{{id}}Title">
-					<h3><span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%<div style="float: right;"><img onclick="deleteSearch({{id}});" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"></div></h3>
+					<h3><span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%<div style="float: right;"><img id="{{id}}SaveSearch" onclick="saveSearch({{id}})" src="" style="width: 25px; height: 25px; display: none; cursor: pointer;"><img onclick="deleteSearch({{id}});" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"></div></h3>
 				</div>
 				<div id="{{id}}FoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll;">
 				</div>

@@ -349,6 +349,10 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		var total = arrayOfFiles.length;
 		count++;
 		var currentPercent = (((100*(count/total))/2)+50).toFixed(2);
+		if(currentPercent === 100 && (((100*(count/total))/2)+50) !== 100)
+		{
+			currentPercent = 99.99;
+		}
 		document.getElementById(id+'Progress').value = currentPercent/100;
 		document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
 		if(count < arrayOfFiles.length)

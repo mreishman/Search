@@ -122,7 +122,6 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 	$count++;
 }	
 
-
 ?>
 <div id="menuMain" style="width: 100%; height: 100%; background-color: rgba(0,0,0,.85); display: none; position: absolute; z-index: 20; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); overflow-y: scroll;">
 	<div style="border-bottom: 1px dotted grey; height: 64px; z-index: 21; padding: .5em 1em; background-color: black;">
