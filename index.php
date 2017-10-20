@@ -106,11 +106,14 @@ elseif (is_dir("../Monitor"))
 	</div>
 
 	<div id="newGrep" style="position: absolute; left: 5%; right: 5%; top: 10%; background-color: rgba(15,15,15,.9); border: 1px solid white; z-index: 10; display: none; box-shadow: 5px 5px 5px rgba(0,0,0,.5); backdrop-filter: blur(10px);" >
-		<dir>
-			Directory: <input id="directoryInput" type="text" name="directory" style="width: 400px;" >
-			Search For: <input id="searchInput" type="text" name="searchFor" style="width: 400px;">
-		</dir>
-		<dir>
+		<div class="paddingDiv">
+			<p><span class="widthBreak">Directory:</span><input id="directoryInput" type="text" name="directory" style="width: 400px;" ></p> 
+			<p><span class="widthBreak">Search For:</span><input id="searchInput" type="text" name="searchFor" style="width: 400px;"></p> 
+		</div>
+		<div class="paddingDiv" id="advanced" style="display: none;">
+			<input type="checkbox" name="ignoreCase"> Ignore Case
+		</div>
+		<dir class="paddingDiv">
 			<button onclick="scanDirCreate();">Run Grep</button>
 			|
 			<button onclick="hideNewGrep();">Cancel</button>

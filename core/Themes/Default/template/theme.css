@@ -13,6 +13,10 @@ body {
 	margin-bottom: 40px;
 }
 
+.paddingDiv{
+	padding: 1em 1em;
+}
+
 .nav-toggle {
 	display: inline-block;
 	background-color: transparent;
@@ -21,6 +25,11 @@ body {
 	height: 30px;
 	padding-top: 13px;
 	cursor: pointer;
+}
+
+.widthBreak{
+	width: 200px;
+	display: inline-block;
 }
 
 .icon-bar-top
