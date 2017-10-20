@@ -157,7 +157,7 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 	<?php if($boolOnMainPage): ?>
 		<div style="display: inline-block;">
 			<img id="notificationNotClicked" onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer;">
-			<img id="notificationClicked" onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer; display: none;">
+			<img id="notificationClicked" onclick="toggleNotifications();" src="core/img/notificationFull.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer; display: none;">
 		</div>
 		<div id="notifications" style="margin-top: 10px; display: none;">
 			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>

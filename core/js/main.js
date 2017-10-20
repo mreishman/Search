@@ -297,7 +297,7 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 			arrayToSend.push(arrayOfFolders[i]); 
 		}
 		var urlForSend = "core/php/getDirInfo.php?format=json";
-		var data = {arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count};
+		var data = {arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count,lengthOfFolders};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -306,7 +306,7 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 				type: "POST",
 				success(data)
 				{
-					parseDirectoryData(_data['arrayOfFolders'], _data['scanFor'], _data['idOfScan'], _data['arrayOfFiles'], _data['total'], _data['count'], data);
+					parseDirectoryData(_data, data);
 				}
 			});	
 		}(data));
@@ -317,26 +317,32 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 	}
 }
 
-function parseDirectoryData(arrayOfFolders, scanFor, idOfScan, arrayOfFiles, total, count, data)
+function parseDirectoryData(_data, data)
 {
-	if(document.getElementById(idOfScan+'Progress'))
+	if(document.getElementById(_data['idOfScan']+'Progress'))
 	{
-		count++;
-		total += data['folders'].length;
-		var currentPercent = ((100*(count/total))/2).toFixed(2);
-		document.getElementById(idOfScan+'Progress').value = currentPercent/100;
-		document.getElementById(idOfScan+'ProgressTxt').innerHTML = currentPercent;
-		arrayOfFolders = arrayOfFolders.concat(data['folders']);
-		arrayOfFiles = arrayOfFiles.concat(data['files']);
-		arrayOfFolders.shift();
-		if(arrayOfFolders.length > 0)
+		for (var i = _data['lengthOfFolders']; i > 0; i--)
 		{
-			scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count);
+			_data['count']++;
+		}
+		_data['total'] += data['folders'].length;
+		var currentPercent = ((100*(_data['count']/_data['total']))/2).toFixed(2);
+		document.getElementById(_data['idOfScan']+'Progress').value = currentPercent/100;
+		document.getElementById(_data['idOfScan']+'ProgressTxt').innerHTML = currentPercent;
+		_data['arrayOfFolders'] = _data['arrayOfFolders'].concat(data['folders']);
+		_data['arrayOfFiles'] = _data['arrayOfFiles'].concat(data['files']);
+		for (var i = _data['lengthOfFolders']; i > 0; i--)
+		{
+			_data['arrayOfFolders'].shift();
+		}
+		if(_data['arrayOfFolders'].length > 0)
+		{
+			scanDir(_data['arrayOfFolders'], _data['idOfScan'], _data['scanFor'], _data['arrayOfFiles'], _data['total'], _data['count']);
 		}
 		else
 		{
-			arrayOfFiles.sort();
-			loopThroughFiles(scanFor, "" ,idOfScan, -1, arrayOfFiles);
+			_data['arrayOfFiles'].sort();
+			loopThroughFiles(_data['scanFor'], "" ,_data['idOfScan'], -1, _data['arrayOfFiles']);
 		}
 	}
 }
@@ -465,10 +471,14 @@ function toggleNotifications()
 	if(document.getElementById("notifications").style.display === "block")
 	{
 		document.getElementById("notifications").style.display = "none";
+		document.getElementById("notificationNotClicked").style.display = "block";
+		document.getElementById("notificationClicked").style.display = "none";
 	}
 	else
 	{
 		showNotifications();
+		document.getElementById("notificationNotClicked").style.display = "none";
+		document.getElementById("notificationClicked").style.display = "block";
 		document.getElementById("notifications").style.display = "block";
 	}
 }
