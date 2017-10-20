@@ -400,13 +400,18 @@ function phpGrep(pattern, file, id, count, files)
 
 function styleReturnedData(data, otherData)
 {
-	if(data)
+	if(data.length !== 0)
 	{
+		console.log(data);
 		var idToAttach = otherData['id']+"FoundThings";
+		if(document.getElementById(idToAttach).style.display === "none")
+		{
+			document.getElementById(idToAttach).style.display = "block";
+		}
 		var dataKeys = Object.keys(data);
 		for (var i = dataKeys.length - 1; i >= 0; i--) 
 		{
-			var tableOutput = "<table style='width: 100%; border-spacing: 0;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%; border: 1px solid white;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
+			var tableOutput = "<table style='width: 100%; border-spacing: 0; border: 1px solid white;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
 			for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
 			{
 
@@ -437,12 +442,27 @@ function styleReturnedData(data, otherData)
 function showGrepPopup()
 {
 	document.getElementById('newGrep').style.display = "block";
-	//scanDir("/var/www/html/app/", "Search"+counter, 'loading-mask');
 }
 
 function hideNewGrep()
 {
 	document.getElementById('newGrep').style.display = "none";
+}
+
+function toggleMainExpand(idOfResults)
+{
+	if(document.getElementById(idOfResults+"FoundThings").style.display === "none")
+	{
+		document.getElementById(idOfResults+"FoundThings").style.display = "block";
+		document.getElementById(idOfResults+"Expand").style.display = "none";
+		document.getElementById(idOfResults+"Contract").style.display = "inline-block";
+	}
+	else
+	{
+		document.getElementById(idOfResults+"FoundThings").style.display = "none";
+		document.getElementById(idOfResults+"Expand").style.display = "inline-block";
+		document.getElementById(idOfResults+"Contract").style.display = "none";
+	}
 }
 
 function scanDirCreate()
@@ -457,7 +477,7 @@ function scanDirCreate()
 
 function deleteSearch(searchToRemove)
 {
-	$(searchToRemove).remove();
+	$("#"+searchToRemove).remove();
 
 	//check if no more searches, add back buttons
 	if($(".containerMain").length === 2)

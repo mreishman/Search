@@ -163,6 +163,9 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
 			<div id="notificationHolder" style="display: block; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;">
 		</div>
+		<div id="notificationIcon">
+			<span id="notificationCount"></span>
+		</div>
 		</div>
 		
 	<?php endif; ?>
