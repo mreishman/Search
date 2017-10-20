@@ -138,12 +138,28 @@ elseif (is_dir("../Monitor"))
 		</div>
 		<div class="notificationContainer">
 			<div id="{{id}}">
-				<span style="width: 100%;" onclick="removeNotification({{id}}); {{action}}"><table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" ><tr><td style="border-right: 1px solid black; width: 65px;"> {{time}} </td><td style="padding-left: 5px;"> {{name}} </td></tr></table></span>
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" style="padding-left: 5px; cursor: pointer;"> {{name}} </td>
+						</tr>
+					</table>
+				</span>
 			</div>
 		</div>
 		<div class="notificationButtons">
 			<div>
-				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;"><tr><th><span style="cursor: pointer;" onclick="toggleNotifications();">Close</span></th><th><span style="cursor: pointer;" onclick="removeAllNotifications();">Clear</span></th></tr></table>
+				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+					<tr>
+						<th>
+							<span style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
+						</th>
+						<th>
+							<span style="cursor: pointer;" onclick="removeAllNotifications();">Clear</span>
+						</th>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>

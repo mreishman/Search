@@ -367,6 +367,15 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		else
 		{
 			//finished
+
+			//notification data
+			var newNotification = new Array();
+			newNotification["name"] = "Finished Scanning ";
+			newNotification["action"] = "window.location.hash = '#"+id+"'";
+
+			//send notification
+			addNotification(newNotification);
+
 			if(document.getElementById(id+"FoundThings").style.display === "none")
 			{
 				//nothing found in thing, display that fact
@@ -530,7 +539,6 @@ function showNotifications()
 	{
 		arrayInternalNotifications = notifications;
 	}
-
 	displayNotifications(arrayInternalNotifications);
 
 }
@@ -540,7 +548,8 @@ function clearAllNotifications()
 	$("#notificationHolder").empty();
 }
 
-function formatAMPM(date) {
+function formatAMPM(date)
+{
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var ampm = hours >= 12 ? 'pm' : 'am';
@@ -559,6 +568,7 @@ function displayNotifications(notificationsArray)
 		var blank = $("#storage .notificationContainer").html();
 		var item = blank;
 		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
+		item = item.replace(/{{idNum}}/g, notificationsArray[i]['id']);
 		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
 		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
 		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
@@ -570,16 +580,15 @@ function displayNotifications(notificationsArray)
 function removeAllNotifications()
 {
 	notifications = new Array();
-	updateNotificationCount();
-	showNotifications();
+	updateNotificationStuff();
 }
 
 function removeNotification(idToRemove)
 {
 	//remove from array
-	delete notifications[idToRemove];
-	//re-run notification display
-	showNotifications();
+	var position = notifications.indexOf(idToRemove);
+	notifications.splice(position, 1);
+	updateNotificationStuff();
 }
 
 function updateNotificationCount()
@@ -606,12 +615,17 @@ function addNotification(notificationArray)
 
 	var currentId = notifications.length;
 
-	arrayInternalNotifications[currentId] = new Array();
-	arrayInternalNotifications[currentId]["id"] = currentId;
-	arrayInternalNotifications[currentId]["name"] = notificationArray["name"];
-	arrayInternalNotifications[currentId]["time"] = formatAMPM(new Date());
-	arrayInternalNotifications[currentId]["action"] = notificationArray["action"];
+	notifications[currentId] = new Array();
+	notifications[currentId]["id"] = currentId;
+	notifications[currentId]["name"] = notificationArray["name"];
+	notifications[currentId]["time"] = formatAMPM(new Date());
+	notifications[currentId]["action"] = notificationArray["action"];
 
+	updateNotificationStuff();
+}
+
+function updateNotificationStuff()
+{
 	updateNotificationCount();
 	showNotifications();
 }
