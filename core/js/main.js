@@ -370,7 +370,7 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 
 			//notification data
 			var newNotification = new Array();
-			newNotification["name"] = "Finished Scanning ";
+			newNotification["name"] = "Finished Scanning " + document.getElementById(id+"Folder").innerHTML;
 			newNotification["action"] = "window.location.hash = '#"+id+"'";
 
 			//send notification
@@ -385,7 +385,8 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 			}
 			else
 			{
-				document.getElementById(id+"SaveSearch").style.display = "inline-block";
+				//un comment when save works
+				//document.getElementById(id+"SaveSearch").style.display = "inline-block";
 			}
 		}
 	}
@@ -472,15 +473,23 @@ function toggleMainExpand(idOfResults)
 {
 	if(document.getElementById(idOfResults+"FoundThings").style.display === "none")
 	{
-		document.getElementById(idOfResults+"FoundThings").style.display = "block";
 		document.getElementById(idOfResults+"Expand").style.display = "none";
+		document.getElementById(idOfResults+"Loading").style.display = "inline-block";
+
+		document.getElementById(idOfResults+"FoundThings").style.display = "block";
+
+		document.getElementById(idOfResults+"Loading").style.display = "none";
 		document.getElementById(idOfResults+"Contract").style.display = "inline-block";
 	}
 	else
 	{
-		document.getElementById(idOfResults+"FoundThings").style.display = "none";
-		document.getElementById(idOfResults+"Expand").style.display = "inline-block";
 		document.getElementById(idOfResults+"Contract").style.display = "none";
+		document.getElementById(idOfResults+"Loading").style.display = "inline-block";
+
+		document.getElementById(idOfResults+"FoundThings").style.display = "none";
+
+		document.getElementById(idOfResults+"Loading").style.display = "none";
+		document.getElementById(idOfResults+"Expand").style.display = "inline-block";
 	}
 }
 

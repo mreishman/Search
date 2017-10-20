@@ -126,6 +126,7 @@ elseif (is_dir("../Monitor"))
 						<div style="float: right;">
 							<img id="{{id}}SaveSearch" onclick="saveSearch('{{id}'})" src="core/img/save.png" style="width: 25px; height: 25px; display: none; cursor: pointer; padding-right: 3px;">
 							<img id="{{id}}Expand" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer; display: none;" onclick="toggleMainExpand('{{id}}');" src="core/img/expand.png">
+							<img id="{{id}}Loading" style="width: 25px; height: 25px; margin-top: -4px; display: none;" src="core/img/loading.gif">
 							<img id="{{id}}Contract" onclick="toggleMainExpand('{{id}}');" src="core/img/contract.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer; display: none;">
 							<img onclick="deleteSearch('{{id}}');" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;">
 						</div>
