@@ -79,9 +79,9 @@ elseif (is_dir("../Monitor"))
 	<?php endif; 
 	require_once('core/php/template/menu.php');?>
 	
-	<div style="z-index: 5; top: 0;" id="main">
+	<div style="z-index: 5; bottom: 0;" id="main">
 
-		<div style="height: 100px; z-index: 5;">
+		<div style="height: 50px; z-index: 5;">
 		</div>
 		<?php
 		$showNewSearch = false; 
@@ -114,14 +114,25 @@ elseif (is_dir("../Monitor"))
 
 	<div id="storage">
 		<div class="container">
-			<div style="background-color: white;" id="{{id}}" class="scanBar containerMain">
+			<div style="background-color: white; border: 1px solid black;" id="{{id}}" class="scanBar containerMain">
 				<div>
 					<progress style="color: white; background: #000000; width: 100%;" id="{{id}}Progress" value="0" max="1"></progress>
 				</div>
 				<div style="color: black; width: 100%; text-align: left;" id="{{id}}Title">
-					<h3><span id="{{id}}Folder">{{folder}}</span> - "<span id="{{id}}Search">{{search}}</span>" <span id="{{id}}ProgressTxt" >--</span>%<div style="float: right;"><img id="{{id}}SaveSearch" onclick="saveSearch('{{id}'})" src="core/img/save.png" style="width: 25px; height: 25px; display: none; cursor: pointer;"><img id="{{id}}Expand" style="display: none;" onclick="toggleMainExpand('{{id}}');" src="core/img/expand.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"><img id="{{id}}Contract" onclick="toggleMainExpand('{{id}}');" src="core/img/contract.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"><img onclick="deleteSearch('{{id}}');" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;"></div></h3>
+					<h3>
+						<span id="{{id}}Folder">{{folder}}</span> - 
+						"<span id="{{id}}Search">{{search}}</span>"
+						<span id="{{id}}ProgressTxt" >--</span>%
+						<div style="float: right;">
+							<img id="{{id}}SaveSearch" onclick="saveSearch('{{id}'})" src="core/img/save.png" style="width: 25px; height: 25px; display: none; cursor: pointer; padding-right: 3px;">
+							<img id="{{id}}Expand" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer; display: none;" onclick="toggleMainExpand('{{id}}');" src="core/img/expand.png">
+							<img id="{{id}}Contract" onclick="toggleMainExpand('{{id}}');" src="core/img/contract.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer; display: none;">
+							<img onclick="deleteSearch('{{id}}');" src="core/img/trashCan2.png" style="width: 25px; height: 25px; margin-top: -4px; cursor: pointer;">
+						</div>
+					</h3>
 				</div>
-				<div id="{{id}}FoundThings" style="background-color: grey; height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll; display: none;">
+				<div id="{{id}}FoundThings" style="background-color: grey; max-height: 400px; border: 1px solid black; margin-top: 10px; overflow-y: scroll; display: none;">
+
 				</div>
 			</div>
 		</div>

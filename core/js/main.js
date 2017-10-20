@@ -366,7 +366,18 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		}
 		else
 		{
-			document.getElementById(id+"SaveSearch").style.display = "inline-block";
+			//finished
+			if(document.getElementById(id+"FoundThings").style.display === "none")
+			{
+				//nothing found in thing, display that fact
+				var tableOutput = "<table style='width: 100%;'><tr><th><h1>No Results Found</h1></th></tr></table>";
+				$("#"+id+"FoundThings").append(tableOutput);
+				toggleMainExpand(id);
+			}
+			else
+			{
+				document.getElementById(id+"SaveSearch").style.display = "inline-block";
+			}
 		}
 	}
 }
@@ -402,11 +413,10 @@ function styleReturnedData(data, otherData)
 {
 	if(data.length !== 0)
 	{
-		console.log(data);
 		var idToAttach = otherData['id']+"FoundThings";
 		if(document.getElementById(idToAttach).style.display === "none")
 		{
-			document.getElementById(idToAttach).style.display = "block";
+			toggleMainExpand(otherData['id']);
 		}
 		var dataKeys = Object.keys(data);
 		for (var i = dataKeys.length - 1; i >= 0; i--) 
@@ -425,7 +435,7 @@ function styleReturnedData(data, otherData)
 					{
 						tableOutput += "<tr>";
 					}
-					tableOutput += "<td style='text-align: right; background-color: #555; width: 100px;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + escapeHTML(data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
+					tableOutput += "<td style='text-align: right; background-color: #555; width: 100px; min-width: 100px;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + escapeHTML(data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
 				}
 				if(j != (data[dataKeys[i]]["data"].length-1))
 				{
