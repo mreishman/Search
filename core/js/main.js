@@ -570,13 +570,14 @@ function displayNotifications(notificationsArray)
 function removeAllNotifications()
 {
 	notifications = new Array();
+	updateNotificationCount();
 	showNotifications();
 }
 
 function removeNotification(idToRemove)
 {
 	//remove from array
-
+	delete notifications[idToRemove];
 	//re-run notification display
 	showNotifications();
 }
@@ -584,6 +585,20 @@ function removeNotification(idToRemove)
 function updateNotificationCount()
 {
 	var currentCount = notifications.length;
+	$("#notificationCount").empty();
+	if(currentCount > 0)
+	{
+		if(currentCount < 10)
+		{
+			currentCount = "0" + currentCount;
+		}
+		document.getElementById("notificationIcon").style.display = "block";
+		$("#notificationCount").append(currentCount);
+	}
+	else
+	{
+		document.getElementById("notificationIcon").style.display = "none";
+	}
 }
 
 function addNotification(notificationArray)

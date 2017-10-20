@@ -159,12 +159,14 @@ elseif(file_exists('../../loghog/monitor/index.php'))
 			<img id="notificationNotClicked" onclick="toggleNotifications();" src="core/img/notification.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer;">
 			<img id="notificationClicked" onclick="toggleNotifications();" src="core/img/notificationFull.png" style="width: 22px; height: 22px; position: absolute; top: 21px; cursor: pointer; display: none;">
 		</div>
+		<div>
+			<div id="notificationIcon" style="display: none;">
+				<span id="notificationCount" style="width: 10px;height: 10px;border-radius: 50%;background-color: red;display: inline-block;margin-left: 5px;position: absolute;top: 21px; left: 51px; font-size: 68%;"></span>
+			</div>
+		</div>
 		<div id="notifications" style="margin-top: 10px; display: none;">
 			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
 			<div id="notificationHolder" style="display: block; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;">
-		</div>
-		<div id="notificationIcon">
-			<span id="notificationCount"></span>
 		</div>
 		</div>
 		
