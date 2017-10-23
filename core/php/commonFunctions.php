@@ -67,8 +67,22 @@ function phpGrep($objectSent)
 		$grepResults = explode(PHP_EOL, $grepResults);
 		$subArray = array("data" => array(), "positionArray" => array());
 		$file =  file($objectSent['file']);
-		$grepResultsCount = count($grepResults);
+		//filter out same line ones
+		$arrayOfLines = array();
+		$grepResultsNew = array();
 		foreach ($grepResults as $result)
+		{
+			$positionArray = explode(":", $result);
+			if(count($positionArray) === 3)
+			{
+				if(!in_array($positionArray[1], $arrayOfLines))
+				{
+					array_push($arrayOfLines, $positionArray[1]);
+					array_push($grepResultsNew, $result);
+				}
+			}
+		}
+		foreach ($grepResultsNew as $result)
 		{
 			$positionArray = explode(":", $result);
 			if(count($positionArray) === 3)
