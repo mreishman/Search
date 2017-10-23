@@ -108,12 +108,15 @@ function phpGrep($objectSent)
 
 				for ($i = $numForAbove; $i > 0; $i--)
 				{
-					if(isset($file[((int)($positionArray[1])-1-$i)]))
-					{ 
-						array_push($subSubArray, $file[((int)($positionArray[1])-1-$i)]);
-						if($setFirstNum  === -1)
-						{
-							$setFirstNum = ((int)($positionArray[1])-1-$i);
+					if($i > $defaultPadding - $numForAbove)
+					{
+						if(isset($file[((int)($positionArray[1])-1-$i)]))
+						{ 
+							array_push($subSubArray, $file[((int)($positionArray[1])-1-$i)]);
+							if($setFirstNum  === -1)
+							{
+								$setFirstNum = ((int)($positionArray[1])-1-$i);
+							}
 						}
 					}
 				}
@@ -140,11 +143,14 @@ function phpGrep($objectSent)
 					}
 				}
 				
-				for ($i = $numForBelow; $i > 0; $i--)
-				{ 
-					if(isset($file[((int)($positionArray[1])-1+(4-$i))]))
-					{
-						array_push($subSubArray, $file[((int)($positionArray[1])-1+(4-$i))]);
+				for ($i = $defaultPadding; $i > 0; $i--)
+				{
+					if($i > $defaultPadding - $numForBelow)
+					{ 
+						if(isset($file[((int)($positionArray[1])-1+(4-$i))]))
+						{
+							array_push($subSubArray, $file[((int)($positionArray[1])-1+(4-$i))]);
+						}
 					}
 				}
 
