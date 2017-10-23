@@ -91,7 +91,21 @@ function phpGrep($objectSent)
 				$subSubArray = array();
 				$setFirstNum = -1;
 
-				for ($i = $defaultPadding; $i > 0; $i--)
+				$numForAbove = $defaultPadding;
+				foreach ($grepResultsNew as $resultFuture)
+				{
+					$positionArrayFuture = explode(":", $resultFuture);
+					if(count($positionArrayFuture) === 3)
+					{
+						if((((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1) - 2 - (2*$defaultPadding)))
+						{
+							$numForAbove = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+						}
+
+					}
+				}
+
+				for ($i = $numForAbove; $i > 0; $i--)
 				{
 					if(isset($file[((int)($positionArray[1])-1-$i)]))
 					{ 
@@ -108,8 +122,23 @@ function phpGrep($objectSent)
 				{
 					$setFirstNum = ((int)($positionArray[1])-1);
 				}
+
+				//check if one of the next positions is less than currentPos + 2xbuffer + 2 but greater than currentPOS
+				$numForBelow = $defaultPadding;
+				foreach ($grepResultsNew as $resultFuture)
+				{
+					$positionArrayFuture = explode(":", $resultFuture);
+					if(count($positionArrayFuture) === 3)
+					{
+						if((((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1) + 2 + (2*$defaultPadding)))
+						{
+							$numForBelow = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+						}
+
+					}
+				}
 				
-				for ($i = $defaultPadding; $i > 0; $i--)
+				for ($i = $numForBelow; $i > 0; $i--)
 				{ 
 					if(isset($file[((int)($positionArray[1])-1+(4-$i))]))
 					{

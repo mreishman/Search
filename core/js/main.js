@@ -447,7 +447,7 @@ function styleReturnedData(data, otherData)
 					}
 					tableOutput += "<td style='text-align: right; background-color: #555; width: 100px; min-width: 100px;' >" + ((data[dataKeys[i]]["positionArray"][j][0])+k) + "</td><td style='white-space: pre-wrap;'>" + escapeHTML(data[dataKeys[i]]["data"][j][k]) + "</td></tr>";
 				}
-				if(j != (data[dataKeys[i]]["data"].length-1))
+				if(j != (data[dataKeys[i]]["data"].length-1) && ((data[dataKeys[i]]["positionArray"][j][0]) + 1 + data[dataKeys[i]]["data"][j].length - 1) !== (data[dataKeys[i]]["positionArray"][j+1][0]))
 				{
 					tableOutput += "<td style='text-align: right; background-color: #555;' >...</td><td></td>";
 				}
