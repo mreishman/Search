@@ -100,6 +100,7 @@ function phpGrep($objectSent)
 						if((((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1) - 2 - (2*$defaultPadding)))
 						{
 							$numForAbove = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+							break;
 						}
 
 					}
@@ -133,6 +134,7 @@ function phpGrep($objectSent)
 						if((((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1) + 2 + (2*$defaultPadding)))
 						{
 							$numForBelow = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+							break;
 						}
 
 					}
