@@ -86,6 +86,11 @@ require_once('../core/php/updateCheck.php');
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/monitor"; ?></p>
 				</li>
 				<li>
+					<span class="settingsBuffer" >  Log-Hog Location:  </span> <input type="text" style="width: 400px;"  name="locationForLogHog" value="<?php echo $locationForLogHog;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/Log-Hog"; ?> ( or loghog)</p>
+				</li>
+				<li>
 					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>

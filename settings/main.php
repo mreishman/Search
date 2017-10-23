@@ -44,9 +44,9 @@ document.getElementById("settingsSelect").addEventListener("change", showOrHideU
 var mainData;
 var watchlistData;
 var menuData;
-var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-var fileArrayKeys = Object.keys(fileArray);
-var countOfWatchList = fileArrayKeys.length;
+
+
+var countOfWatchList = 0;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
 var locationInsert = "newRowLocationForWatchList";

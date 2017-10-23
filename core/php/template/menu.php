@@ -53,8 +53,12 @@ else
 $count++;
 
 //check for Status
-
-if(file_exists('../status/index.php'))
+if($locationForStatus !== "")
+{
+	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '"+$locationForStatus+"';", "image" => "core/img/gitStatus.png");
+	$count++;
+}
+elseif(file_exists('../status/index.php'))
 {
 	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '../status/';", "image" => "core/img/gitStatus.png");
 	$count++;
@@ -66,8 +70,12 @@ elseif(file_exists('../../status/index.php'))
 }
 
 //check for log-hog
-
-if(file_exists('../Log-Hog/index.php'))
+if($locationForLogHog !== "")
+{
+	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '"+$locationForLogHog+"';", "image" => "core/img/loghog.png");
+	$count++;
+}
+elseif(file_exists('../Log-Hog/index.php'))
 {
 	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '../Log-Hog/';", "image" => "core/img/loghog.png");
 	$count++;
@@ -90,8 +98,12 @@ elseif(file_exists('../../loghog/index.php'))
 }
 
 //check for monitor
-
-if(file_exists('../monitor/index.php'))
+if($locationForMonitor)
+{
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '"+$locationForMonitor+"';", "image" => "core/img/task-manager.png");
+	$count++;
+}
+elseif(file_exists('../monitor/index.php'))
 {
 	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../monitor/';", "image" => "core/img/task-manager.png");
 	$count++;

@@ -1,7 +1,6 @@
 function resize()
 {
 	var targetHeight = window.innerHeight - $("#menu").outerHeight();
-	console.log(targetHeight);
 	if($("#main").outerHeight() !== targetHeight)
 	{
 		$("#main").outerHeight(targetHeight);

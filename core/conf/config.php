@@ -48,6 +48,7 @@ $defaultConfig = array(
 	'updateNoticeMeter'	=> 'every',
 	'locationForStatus'	=> '',
 	'locationForMonitor'	=> '',
+	'locationForLogHog'	=> '',
 	'bottomBarIndexShow'	=> 'true',
 	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsArray'	=> array(

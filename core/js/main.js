@@ -431,7 +431,7 @@ function styleReturnedData(data, otherData)
 		var dataKeys = Object.keys(data);
 		for (var i = dataKeys.length - 1; i >= 0; i--) 
 		{
-			var tableOutput = "<table style='width: 100%; border-spacing: 0; border: 1px solid white;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+") [expand]</th></tr>";
+			var tableOutput = "<table style='width: 100%; border-spacing: 0; border: 1px solid white;' ><tr><th colspan=\"2\" style='background-color: #333; line-height: 250%;'>"+dataKeys[i]+"("+data[dataKeys[i]]["data"].length+")</th></tr>";
 			for (var j = 0; j < data[dataKeys[i]]["data"].length; j++)
 			{
 
