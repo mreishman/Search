@@ -6,6 +6,7 @@ $menuItems = array();
 $count = 0;
 $modifier = "./";
 $imageModifier = "../";
+$linkModifier = "../";
 $boolOnMainPage = false;
 
 if((strpos($URI, 'main.php') !== false) || (strpos($URI, 'advanced.php') !== false) || (strpos($URI, 'devTools.php') !== false) || (strpos($URI, 'about.php') !== false) || ((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)))
@@ -17,6 +18,7 @@ else
 	$boolOnMainPage = true;
 	$imageModifier = "./";
 	$modifier = "./settings/";
+	$linkModifier = "";
 	$menuItems[$count] = array("title" => "New Grep" , "action" => "toggleMenu();showGrepPopup();", "image" => "core/img/search.png");
 }
 $count++;
@@ -55,82 +57,82 @@ $count++;
 //check for Status
 if($locationForStatus !== "")
 {
-	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '"+$locationForStatus+"';", "image" => "core/img/gitStatus.png");
+	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '".$locationForStatus."';", "image" => "core/img/gitStatus.png");
 	$count++;
 }
-elseif(file_exists('../status/index.php'))
+elseif(file_exists($linkModifier.'../status/index.php'))
 {
-	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '../status/';", "image" => "core/img/gitStatus.png");
+	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  ".$linkModifier."'../status/';", "image" => "core/img/gitStatus.png");
 	$count++;
 }
-elseif(file_exists('../../status/index.php'))
+elseif(file_exists($linkModifier.'../../status/index.php'))
 {
-	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  '../../status/';", "image" => "core/img/gitStatus.png");
+	$menuItems[$count] = array("title" => "gitStatus" , "action" => "window.location.href =  ".$linkModifier."'../../status/';", "image" => "core/img/gitStatus.png");
 	$count++;
 }
 
 //check for log-hog
 if($locationForLogHog !== "")
 {
-	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '"+$locationForLogHog+"';", "image" => "core/img/loghog.png");
+	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '".$locationForLogHog."';", "image" => "core/img/loghog.png");
 	$count++;
 }
-elseif(file_exists('../Log-Hog/index.php'))
+elseif(file_exists($linkModifier.'../Log-Hog/index.php'))
 {
-	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '../Log-Hog/';", "image" => "core/img/loghog.png");
+	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  ".$linkModifier."'../Log-Hog/';", "image" => "core/img/loghog.png");
 	$count++;
 }
-elseif(file_exists('../../Log-Hog/index.php'))
+elseif(file_exists($linkModifier.'../../Log-Hog/index.php'))
 {
-	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  '../../Log-Hog/';", "image" => "core/img/loghog.png");
+	$menuItems[$count] = array("title" => "Log-Hog" , "action" => "window.location.href =  ".$linkModifier."'../../Log-Hog/';", "image" => "core/img/loghog.png");
 	$count++;
 }
 	
-if(file_exists('../loghog/index.php'))
+if(file_exists($linkModifier.'../loghog/index.php'))
 {
-	$menuItems[$count] = array("title" => "Loghog" , "action" => "window.location.href =  '../loghog/';", "image" => "core/img/loghog.png");
+	$menuItems[$count] = array("title" => "Loghog" , "action" => "window.location.href =  ".$linkModifier."'../loghog/';", "image" => "core/img/loghog.png");
 	$count++;
 }
-elseif(file_exists('../../loghog/index.php'))
+elseif(file_exists($linkModifier.'../../loghog/index.php'))
 {
-	$menuItems[$count] = array("title" => "Loghog" , "action" => "window.location.href =  '../../loghog/';", "image" => "core/img/loghog.png");
+	$menuItems[$count] = array("title" => "Loghog" , "action" => "window.location.href =  ".$linkModifier."'../../loghog/';", "image" => "core/img/loghog.png");
 	$count++;
 }
 
 //check for monitor
 if($locationForMonitor)
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '"+$locationForMonitor+"';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '".$locationForMonitor."';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../monitor/index.php'))
+elseif(file_exists($linkModifier.'../monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../../monitor/index.php'))
+elseif(file_exists($linkModifier.'../../monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../../monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../Log-Hog/monitor/index.php'))
+elseif(file_exists($linkModifier.'../Log-Hog/monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../../Log-Hog/monitor/index.php'))
+elseif(file_exists($linkModifier.'../../Log-Hog/monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../../Log-Hog/monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../loghog/monitor/index.php'))
+elseif(file_exists($linkModifier.'../loghog/monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../loghog/monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../loghog/monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }
-elseif(file_exists('../../loghog/monitor/index.php'))
+elseif(file_exists($linkModifier.'../../loghog/monitor/index.php'))
 {
-	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  '../../loghog/monitor/';", "image" => "core/img/task-manager.png");
+	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../../loghog/monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
 }	
 
