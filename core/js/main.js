@@ -327,7 +327,7 @@ function parseDirectoryData(_data, data)
 		}
 		_data['total'] += data['folders'].length;
 		var currentPercent = ((100*(_data['count']/_data['total']))/2).toFixed(2);
-		document.getElementById(_data['idOfScan']+'Progress').value = currentPercent/100;
+		document.getElementById(_data['idOfScan']+'Progress').value = ((currentPercent/100).toFixed(4));
 		document.getElementById(_data['idOfScan']+'ProgressTxt').innerHTML = currentPercent;
 		_data['arrayOfFolders'] = _data['arrayOfFolders'].concat(data['folders']);
 		_data['arrayOfFiles'] = _data['arrayOfFiles'].concat(data['files']);
@@ -358,7 +358,7 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		{
 			currentPercent = 99.99;
 		}
-		document.getElementById(id+'Progress').value = currentPercent/100;
+		document.getElementById(id+'Progress').value = ((currentPercent/100).toFixed(4));
 		document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
 		if(count < arrayOfFiles.length)
 		{
@@ -424,7 +424,7 @@ function styleReturnedData(data, otherData)
 	if(data.length !== 0)
 	{
 		var idToAttach = otherData['id']+"FoundThings";
-		if(document.getElementById(idToAttach).style.display === "none")
+		if(document.getElementById(idToAttach).style.display === "none" && document.getElementById(idToAttach).innerHTML.replace(/\s/g, "") === "")
 		{
 			toggleMainExpand(otherData['id']);
 		}

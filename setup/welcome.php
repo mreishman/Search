@@ -40,7 +40,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
 	<div class="settingsHeader">
-		<h1>Thank you for downloading Log-Hog.</h1>
+		<h1>Thank you for downloading Search.</h1>
 	</div>
 	<div class="settingsDiv" >
 	<p style="min-height: 200px; padding: 10px;">Please follow these steps to complete the setup process or click default to accept default setting</p>

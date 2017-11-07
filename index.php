@@ -155,7 +155,7 @@ elseif (is_dir("../Monitor"))
 					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 						<tr>
 							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td onclick="removeNotification('{{idNum}}'); {{action}}" style="padding-left: 5px; cursor: pointer;"> {{name}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" style="padding-left: 5px; cursor: pointer; word-wrap:break-word;  word-break: break-all;"> {{name}} </td>
 						</tr>
 					</table>
 				</span>
