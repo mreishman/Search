@@ -27,7 +27,7 @@ require_once('../top/statusTest.php');
 	<div class="settingsHeader" style="text-align: center;" >
 		<h1 id="titleForUpdater" >An Update is in progress</h1>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
-			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+			<a onclick="window.location.href = '../settings/update.php'">Back to Search</a>
 		</div>
 	</div>
 	<div class="settingsDiv" >
@@ -105,7 +105,7 @@ function checkIfChange()
 function finishedUpdate()
 {
 	document.getElementById("titleForUpdater").innerHTML = "Finished Update";
-	document.getElementById("innerDisplayUpdate").innerHTML = "<a class='link' onclick='window.location.href = \"../settings/update.php\"'  >Back to Log-Hog</a> ";
+	document.getElementById("innerDisplayUpdate").innerHTML = "<a class='link' onclick='window.location.href = \"../settings/update.php\"'  >Back to Search</a> ";
 }
 
 </script>
