@@ -1,4 +1,6 @@
 <?php
+header("Location: "."update.php", true, 302); /* Redirect browser */
+exit();
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {

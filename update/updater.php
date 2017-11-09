@@ -14,6 +14,8 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
 
+$cssVersion = 34673635;
+
 $noUpdateNeeded = true;
 $versionToUpdate = "";
 
@@ -187,7 +189,7 @@ if(count($arrayOfVersions) === 0)
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var percent = 0;
 	var arrayOfFilesExtracted;
-	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
+	var monitorLocation = "false";
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
