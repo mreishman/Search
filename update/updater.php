@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -11,7 +13,8 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
-require_once('../top/statusTest.php');
+
+$cssVersion = 34673635;
 
 $noUpdateNeeded = true;
 $versionToUpdate = "";
@@ -154,7 +157,7 @@ if(count($arrayOfVersions) === 0)
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<h2 style="color: white;">If this page doesn't redirect within 10 seconds... click here:</h2>
 			<br>
-			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+			<a onclick="window.location.href = '../settings/update.php'">Back to Search</a>
 		</div>
 	</div>
 	<div class="settingsDiv" >
@@ -186,7 +189,7 @@ if(count($arrayOfVersions) === 0)
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var percent = 0;
 	var arrayOfFilesExtracted;
-	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
+	var monitorLocation = "false";
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
@@ -208,7 +211,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		else
 		{
-			updateText("No update is currently available for Log-Hog.");
+			updateText("No update is currently available for Search.");
 			document.getElementById('menu').style.display = "block";
 		}
 	});
@@ -321,7 +324,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		var urlForSend = urlForSendMain;
 		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-		var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
+		var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Search/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -429,7 +432,7 @@ if(count($arrayOfVersions) === 0)
 
 	function updateError()
 	{
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to update Log-Hog. </p>";
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to update Search. </p>";
 	}
 
 	function verifyFail(action)
