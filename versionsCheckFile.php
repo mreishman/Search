@@ -8,7 +8,7 @@ $versionCheckArray = array(
 			'releaseNotes'	=> '<ul><li>Initial Release</li></ul>'
 		),
 		'1.0.1'	        => array(
-			'branchName'	=> '1.0.1',
+			'branchName'	=> '1.0.1Update',
 			'releaseNotes'	=> '<ul><li>Bug Fixes</li></ul>'
 		),
 	)
