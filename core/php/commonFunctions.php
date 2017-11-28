@@ -60,13 +60,20 @@ function filePermsDisplay($key)
 function phpGrep($objectSent)
 {
 	$returnArray = array();
-	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
+	$fileName = $objectSent['file'];
+	$command = "grep -n";
+	if(isset($objectSent['extraData']['ignoreCase']))
+	{
+		$command .= "i";
+	}
+	$command .= "Ho '".(string)$objectSent['pattern']."' '".$fileName."'";
+	$grepResults = shell_exec($command);
 	$defaultPadding = 3; //lines +/- of padding for around found thing.
 	if($grepResults)
 	{
 		$grepResults = explode(PHP_EOL, $grepResults);
 		$subArray = array("data" => array(), "positionArray" => array());
-		$file =  file($objectSent['file']);
+		$file =  file($fileName);
 		//filter out same line ones
 		$arrayOfLines = array();
 		$grepResultsNew = array();

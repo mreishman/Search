@@ -111,16 +111,16 @@ elseif (is_dir("../Monitor"))
 			<p><span class="widthBreak">Search For:</span><input id="searchInput" type="text" name="searchFor" style="width: 400px;"></p> 
 		</div>
 		<div class="paddingDiv" id="advanced" style="display: none;">
-			<input type="checkbox" name="ignoreCase"> Ignore Case
+			<form id="advancedFormForScan">
+				<input type="checkbox" name="ignoreCase"> Ignore Case
+			</form>
 		</div>
 		<dir class="paddingDiv">
 			<button onclick="scanDirCreate();">Run Grep</button>
 			|
 			<button onclick="hideNewGrep();">Cancel</button>
-			<!-- 
 			|
 			<button onclick="showAdvanced();">Advanced</button>
-			-->
 		</dir>
 	</div>
 

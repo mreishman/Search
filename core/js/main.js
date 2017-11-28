@@ -271,7 +271,7 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 }
 
-function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1, count = 0)
+function scanDir(arrayOfFolders, idOfScan, scanFor, extraData, arrayOfFiles = [], total = 1, count = 0)
 {
 	if(arrayOfFolders.constructor !== Array)
 	{
@@ -297,7 +297,7 @@ function scanDir(arrayOfFolders, idOfScan, scanFor, arrayOfFiles = [], total = 1
 			arrayToSend.push(arrayOfFolders[i]); 
 		}
 		var urlForSend = "core/php/getDirInfo.php?format=json";
-		var data = {arrayOfFolders, idOfScan, scanFor, arrayOfFiles, total, count,lengthOfFolders};
+		var data = {arrayOfFolders, idOfScan, scanFor, extraData, arrayOfFiles, total, count,lengthOfFolders};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -337,17 +337,17 @@ function parseDirectoryData(_data, data)
 		}
 		if(_data['arrayOfFolders'].length > 0)
 		{
-			scanDir(_data['arrayOfFolders'], _data['idOfScan'], _data['scanFor'], _data['arrayOfFiles'], _data['total'], _data['count']);
+			scanDir(_data['arrayOfFolders'], _data['idOfScan'], _data['scanFor'], _data['extraData'] , _data['arrayOfFiles'], _data['total'], _data['count']);
 		}
 		else
 		{
 			_data['arrayOfFiles'].sort();
-			loopThroughFiles(_data['scanFor'], "" ,_data['idOfScan'], -1, _data['arrayOfFiles']);
+			loopThroughFiles(_data['scanFor'], "" ,_data['idOfScan'], _data['extraData'] , -1, _data['arrayOfFiles']);
 		}
 	}
 }
 
-function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
+function loopThroughFiles(pattern, file, id, extraData, count = -1, arrayOfFiles)
 {
 	if(document.getElementById(id+'Progress'))
 	{
@@ -362,7 +362,7 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 		document.getElementById(id+'ProgressTxt').innerHTML = currentPercent;
 		if(count < arrayOfFiles.length)
 		{
-			phpGrep(pattern,arrayOfFiles[count],id, count, arrayOfFiles);
+			phpGrep(pattern,arrayOfFiles[count],id, extraData, count, arrayOfFiles);
 		}
 		else
 		{
@@ -392,23 +392,23 @@ function loopThroughFiles(pattern, file, id, count = -1, arrayOfFiles)
 	}
 }
 
-function phpGrep(pattern, file, id, count, files)
+function phpGrep(pattern, file, id, extraData, count, files)
 {
 	try
 	{
 		var urlForSend = "core/php/phpGrep.php?format=json";
 		var objectSent = new Array();
-		var data = {file, pattern, id, count, files};
+		var data = {file, pattern, id, extraData, count, files};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data: {file, pattern, id, count},
+				data: {file, pattern, id, count, extraData},
 				type: "POST",
 				success(data)
 				{
 					styleReturnedData(data, _data);
-					loopThroughFiles(_data['pattern'], _data['file'], _data['id'], _data['count'],  _data['files']);
+					loopThroughFiles(_data['pattern'], _data['file'], _data['id'], _data['extraData'], _data['count'],  _data['files']);
 				}
 			});	
 		}(data));
@@ -499,7 +499,8 @@ function scanDirCreate()
 	var directoryInput = document.getElementById('directoryInput').value;
 	var idForSearch = 'Search'+counter;
 	var searchInput = document.getElementById('searchInput').value;
-	scanDir(directoryInput, idForSearch, searchInput);
+	var extraData = $('#advancedFormForScan').serializeArray();
+	scanDir(directoryInput, idForSearch, searchInput, extraData);
 	counter++;
 }
 
@@ -637,6 +638,18 @@ function updateNotificationStuff()
 {
 	updateNotificationCount();
 	showNotifications();
+}
+
+function showAdvanced()
+{
+	if(document.getElementById('advanced').style.display === "none")
+	{
+		document.getElementById('advanced').style.display = "block";	
+	}
+	else if(document.getElementById('advanced').style.display === "block")
+	{
+		document.getElementById('advanced').style.display = "none";
+	}
 }
 
 $(document).ready(function()
