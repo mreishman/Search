@@ -62,9 +62,15 @@ function phpGrep($objectSent)
 	$returnArray = array();
 	$fileName = $objectSent['file'];
 	$command = "grep -n";
-	if(isset($objectSent['extraData']['ignoreCase']))
+	if(isset($objectSent['extraData']))
 	{
-		$command .= "i";
+		foreach ($objectSent['extraData'] as $key => $value)
+		{
+			if($value["name"] === "ignoreCase")
+			{
+				$command .= "i";
+			}
+		}
 	}
 	$command .= "Ho '".(string)$objectSent['pattern']."' '".$fileName."'";
 	$grepResults = shell_exec($command);
