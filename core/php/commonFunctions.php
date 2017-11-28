@@ -104,11 +104,12 @@ function phpGrep($objectSent)
 				foreach ($grepResultsNew as $resultFuture)
 				{
 					$positionArrayFuture = explode(":", $resultFuture);
-					if(count($positionArrayFuture) === 3)
+					if(count($positionArrayFuture) >= 3)
 					{
-						if((((int)($positionArrayFuture[1])-1) < ($lineNumber-1)) && (((int)($positionArrayFuture[1])-1) > ($lineNumber-1) - 2 - (2*$defaultPadding)))
+						$futureLineNumber = (int)$positionArrayFuture[1];
+						if((($futureLineNumber-1) < ($lineNumber-1)) && (($futureLineNumber-1) > ($lineNumber-1) - 2 - (2*$defaultPadding)))
 						{
-							$numForAbove = min( (((int)($positionArrayFuture[1])-1) - ($lineNumber-1) -1) , $defaultPadding);
+							$numForAbove = min( (($futureLineNumber-1) - ($lineNumber-1) -1) , $defaultPadding);
 							break;
 						}
 
@@ -141,11 +142,12 @@ function phpGrep($objectSent)
 				foreach ($grepResultsNew as $resultFuture)
 				{
 					$positionArrayFuture = explode(":", $resultFuture);
-					if(count($positionArrayFuture) === 3)
+					if(count($positionArrayFuture) >= 3)
 					{
-						if((((int)($positionArrayFuture[1])-1) > ($lineNumber-1)) && (($lineNumber-1) < ($lineNumber-1) + 2 + (2*$defaultPadding)))
+						$futureLineNumber = (int)$positionArrayFuture[1];
+						if((($futureLineNumber-1) > ($lineNumber-1)) && (($lineNumber-1) < ($lineNumber-1) + 2 + (2*$defaultPadding)))
 						{
-							$numForBelow = min( (((int)($positionArrayFuture[1])-1) - ($lineNumber-1) -1) , $defaultPadding);
+							$numForBelow = min((($futureLineNumber-1) - ($lineNumber-1) -1) , $defaultPadding);
 							break;
 						}
 
