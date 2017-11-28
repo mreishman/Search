@@ -64,11 +64,23 @@ function phpGrep($objectSent)
 	$command = "grep -n";
 	if(isset($objectSent['extraData']))
 	{
+		$arrayOfCommandModifiers = array(
+			"ignoreCase"			=>	"i",
+			"extendedRegexp"		=>	"E",
+			"fixedStrings"			=>	"F",
+			"basicRegexp"			=>	"G",
+			"perlRegexp"			=>	"P",
+			"regexpPATTERN"			=>	"e",
+			"wordRegexp"			=>	"w",
+			"lineRegexp"			=>	"x",
+			"invertMatch"			=>	'v'
+		);
 		foreach ($objectSent['extraData'] as $key => $value)
 		{
-			if($value["name"] === "ignoreCase")
+			$valueForSearch = $arrayOfCommandModifiers[$value["name"]];
+			if(isset($valueForSearch))
 			{
-				$command .= "i";
+				$command .= $valueForSearch;
 			}
 		}
 	}

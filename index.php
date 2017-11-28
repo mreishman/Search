@@ -71,6 +71,15 @@ elseif (is_dir("../Monitor"))
 	<?php
 		echo loadSentryData($sendCrashInfoJS);
 	?>
+	<style type="text/css">
+		.blockForAdvancedOptions
+		{
+			display: inline-block;
+			border: 1px solid white;
+			margin: 10px;
+			padding: 10px;
+		}
+	</style>
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
@@ -112,7 +121,30 @@ elseif (is_dir("../Monitor"))
 		</div>
 		<div class="paddingDiv" id="advanced" style="display: none;">
 			<form id="advancedFormForScan">
-				<input type="checkbox" name="ignoreCase"> Ignore Case
+				<div class="blockForAdvancedOptions">
+					<p>Regexp selection and interpretation:</p>
+					<br>
+					<input type="checkbox" name="extendedRegexp"> PATTERN is an extended regular expression (ERE)
+					<br>
+					<input type="checkbox" name="fixedStrings"> PATTERN is a set of newline-separated strings
+					<br>
+					<input type="checkbox" name="basicRegexp"> PATTERN is a basic regular expression (BRE)
+					<br>
+					<input type="checkbox" name="perlRegexp"> PATTERN is a Perl regular expression
+					<br>
+					<input type="checkbox" name="regexpPATTERN"> use PATTERN for matching
+					<br>
+					<input type="checkbox" name="ignoreCase"> Ignore Case
+					<br>
+					<input type="checkbox" name="wordRegexp"> force PATTERN to match only whole words
+					<br>
+					<input type="checkbox" name="lineRegexp"> force PATTERN to match only whole lines
+				</div>
+				<div class="blockForAdvancedOptions">
+					<p>Miscellaneous:</p>
+					<br>
+					<input type="checkbox" name="invertMatch">  select non-matching lines
+				</div>
 			</form>
 		</div>
 		<dir class="paddingDiv">
