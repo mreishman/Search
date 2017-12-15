@@ -652,6 +652,14 @@ function showAdvanced()
 	}
 }
 
+function addToList(whatToAdd, whatListToAddTo)
+{
+	var whatToAddValue = document.getElementById(whatToAdd).value;
+	var item = "[x] "+whatToAddValue+" <input type='checkbox' style='display: none;' checked name='"+whatToAddValue+"'>";
+	$("#"+whatListToAddTo).append(item);
+	document.getElementById(whatToAdd).value = "";
+}
+
 $(document).ready(function()
 {
 	resize();

@@ -146,6 +146,41 @@ elseif (is_dir("../Monitor"))
 					<input type="checkbox" name="invertMatch">  select non-matching lines
 				</div>
 			</form>
+				<div class="blockForAdvancedOptions">
+					<p>Exclude Directories (Full Path)</p>
+					<br>
+					<input type="text" id="excludeDirectoriesFullPathInput">
+					<a onclick="addToList('excludeDirectoriesFullPathInput','listOfExcludedDirectoriesFullPath')" class="link">Add</a>
+					<br>
+					<span id="listOfExcludedDirectoriesFullPath"></span>
+					<p>Exclude Directories (Partial Path)</p>
+					<br>
+					<input type="text" id="excludeDirectoriesPartialPathInput">
+					<a onclick="addToList('excludeDirectoriesPartialPathInput','listOfExcludeDirectoriesPartialPath')" class="link">Add</a>
+					<br>
+					<span id="listOfExcludeDirectoriesPartialPath"></span>
+				</div>
+				<div class="blockForAdvancedOptions">
+					<p>Exclude File (Full Path)</p>
+					<br>
+					<input type="text" id="excludeFileFullPathInput">
+					<a onclick="addToList('excludeFileFullPathInput','listOfExcludeFileFullPathInput')" class="link">Add</a>
+					<br>
+					<span id="listOfExcludeFileFullPathInput"></span>
+					<p>Exclude File (Partial Path)</p>
+					<br>
+					<input type="text" id="excludeFilePartialPathInput">
+					<a onclick="addToList('excludeFilePartialPathInput','listOfExcludeFilePartialPath')" class="link">Add</a>
+					<br>
+					<span id="listOfExcludeFilePartialPath"></span>
+					<p>File Type</p>
+					<br>
+					<input type="text" id="excludeFileTypeInput">
+					<a onclick="addToList('excludeFileTypeInput','listOfExcludeFileType')" class="link">Add</a>
+					<br>
+					<span id="listOfExcludeFileType"></span>
+				</div>
+			
 		</div>
 		<dir class="paddingDiv">
 			<button onclick="scanDirCreate();">Run Grep</button>
