@@ -26,6 +26,7 @@ var refreshing = false;
 var percent = 0;
 var firstLoad = true;
 var timer;
+var advancedItemCounter = 0;
 
 function escapeHTML(unsafeStr)
 {
@@ -655,9 +656,15 @@ function showAdvanced()
 function addToList(whatToAdd, whatListToAddTo)
 {
 	var whatToAddValue = document.getElementById(whatToAdd).value;
-	var item = "[x] "+whatToAddValue+" <input type='checkbox' style='display: none;' checked name='"+whatToAddValue+"'>";
+	var item = " <span id='excludeListItem"+advancedItemCounter+"' > <a style='cursor: pointer;' onclick='removeFromList("+advancedItemCounter+")' >x</a> "+whatToAddValue+" <input type='checkbox' style='display: none;' checked name='"+whatToAddValue+"'> </span>";
 	$("#"+whatListToAddTo).append(item);
 	document.getElementById(whatToAdd).value = "";
+	advancedItemCounter++;
+}
+
+function removeFromList(numToDelete)
+{
+	document.getElementById("excludeListItem"+numToDelete).innerHTML = "";
 }
 
 $(document).ready(function()
