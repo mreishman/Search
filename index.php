@@ -146,7 +146,7 @@ elseif (is_dir("../Monitor"))
 					<input type="checkbox" name="invertMatch">  select non-matching lines
 				</div>
 			</form>
-				<div class="blockForAdvancedOptions">
+				<div style="display: none;" class="blockForAdvancedOptions">
 					<p>Exclude Directories (Full Path)</p>
 					<br>
 					<input type="text" id="excludeDirectoriesFullPathInput">
@@ -160,7 +160,7 @@ elseif (is_dir("../Monitor"))
 					<br>
 					<span id="listOfExcludeDirectoriesPartialPath"></span>
 				</div>
-				<div class="blockForAdvancedOptions">
+				<div  style="display: none;" class="blockForAdvancedOptions">
 					<p>Exclude File (Full Path)</p>
 					<br>
 					<input type="text" id="excludeFileFullPathInput">
