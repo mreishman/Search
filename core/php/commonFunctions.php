@@ -60,24 +60,50 @@ function filePermsDisplay($key)
 function phpGrep($objectSent)
 {
 	$returnArray = array();
-	$grepResults = shell_exec("grep -nHo ".$objectSent['pattern']." ".$objectSent['file']);
+	$fileName = $objectSent['file'];
+	$command = "grep -n";
+	if(isset($objectSent['extraData']))
+	{
+		$arrayOfCommandModifiers = array(
+			"ignoreCase"			=>	"i",
+			"extendedRegexp"		=>	"E",
+			"fixedStrings"			=>	"F",
+			"basicRegexp"			=>	"G",
+			"perlRegexp"			=>	"P",
+			"regexpPATTERN"			=>	"e",
+			"wordRegexp"			=>	"w",
+			"lineRegexp"			=>	"x",
+			"invertMatch"			=>	'v'
+		);
+		foreach ($objectSent['extraData'] as $key => $value)
+		{
+			$valueForSearch = $arrayOfCommandModifiers[$value["name"]];
+			if(isset($valueForSearch))
+			{
+				$command .= $valueForSearch;
+			}
+		}
+	}
+	$command .= "Ho '".(string)$objectSent['pattern']."' '".$fileName."'";
+	$grepResults = shell_exec($command);
 	$defaultPadding = 3; //lines +/- of padding for around found thing.
 	if($grepResults)
 	{
 		$grepResults = explode(PHP_EOL, $grepResults);
 		$subArray = array("data" => array(), "positionArray" => array());
-		$file =  file($objectSent['file']);
+		$file =  file($fileName);
 		//filter out same line ones
 		$arrayOfLines = array();
 		$grepResultsNew = array();
 		foreach ($grepResults as $result)
 		{
 			$positionArray = explode(":", $result);
-			if(count($positionArray) === 3)
+			if(count($positionArray) >= 3)
 			{
-				if(!in_array($positionArray[1], $arrayOfLines))
+				$lineNumber = (int)$positionArray[1];
+				if(!in_array($lineNumber, $arrayOfLines))
 				{
-					array_push($arrayOfLines, $positionArray[1]);
+					array_push($arrayOfLines, $lineNumber);
 					array_push($grepResultsNew, $result);
 				}
 			}
@@ -85,8 +111,9 @@ function phpGrep($objectSent)
 		foreach ($grepResultsNew as $result)
 		{
 			$positionArray = explode(":", $result);
-			if(count($positionArray) === 3)
+			if(count($positionArray) >= 3)
 			{
+				$lineNumber = (int)$positionArray[1];
 				//as expected
 				$subSubArray = array();
 				$setFirstNum = -1;
@@ -95,11 +122,12 @@ function phpGrep($objectSent)
 				foreach ($grepResultsNew as $resultFuture)
 				{
 					$positionArrayFuture = explode(":", $resultFuture);
-					if(count($positionArrayFuture) === 3)
+					if(count($positionArrayFuture) >= 3)
 					{
-						if((((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1) - 2 - (2*$defaultPadding)))
+						$futureLineNumber = (int)$positionArrayFuture[1];
+						if((($futureLineNumber-1) < ($lineNumber-1)) && (($futureLineNumber-1) > ($lineNumber-1) - 2 - (2*$defaultPadding)))
 						{
-							$numForAbove = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+							$numForAbove = min( (($futureLineNumber-1) - ($lineNumber-1) -1) , $defaultPadding);
 							break;
 						}
 
@@ -110,21 +138,21 @@ function phpGrep($objectSent)
 				{
 					if($i > $defaultPadding - $numForAbove)
 					{
-						if(isset($file[((int)($positionArray[1])-1-$i)]))
+						if(isset($file[($lineNumber-1-$i)]))
 						{ 
-							array_push($subSubArray, $file[((int)($positionArray[1])-1-$i)]);
+							array_push($subSubArray, $file[($lineNumber-1-$i)]);
 							if($setFirstNum  === -1)
 							{
-								$setFirstNum = ((int)($positionArray[1])-1-$i);
+								$setFirstNum = ($lineNumber-1-$i);
 							}
 						}
 					}
 				}
 
-				array_push($subSubArray, $file[((int)($positionArray[1])-1)]);
+				array_push($subSubArray, $file[($lineNumber-1)]);
 				if($setFirstNum  === -1)
 				{
-					$setFirstNum = ((int)($positionArray[1])-1);
+					$setFirstNum = ($lineNumber-1);
 				}
 
 				//check if one of the next positions is less than currentPos + 2xbuffer + 2 but greater than currentPOS
@@ -132,11 +160,12 @@ function phpGrep($objectSent)
 				foreach ($grepResultsNew as $resultFuture)
 				{
 					$positionArrayFuture = explode(":", $resultFuture);
-					if(count($positionArrayFuture) === 3)
+					if(count($positionArrayFuture) >= 3)
 					{
-						if((((int)($positionArrayFuture[1])-1) > ((int)($positionArray[1])-1)) && (((int)($positionArrayFuture[1])-1) < ((int)($positionArray[1])-1) + 2 + (2*$defaultPadding)))
+						$futureLineNumber = (int)$positionArrayFuture[1];
+						if((($futureLineNumber-1) > ($lineNumber-1)) && (($lineNumber-1) < ($lineNumber-1) + 2 + (2*$defaultPadding)))
 						{
-							$numForBelow = min( (((int)($positionArrayFuture[1])-1) - ((int)($positionArray[1])-1) -1) , $defaultPadding);
+							$numForBelow = min((($futureLineNumber-1) - ($lineNumber-1) -1) , $defaultPadding);
 							break;
 						}
 
@@ -147,15 +176,15 @@ function phpGrep($objectSent)
 				{
 					if($i > $defaultPadding - $numForBelow)
 					{ 
-						if(isset($file[((int)($positionArray[1])-1+(4-$i))]))
+						if(isset($file[($lineNumber-1+(4-$i))]))
 						{
-							array_push($subSubArray, $file[((int)($positionArray[1])-1+(4-$i))]);
+							array_push($subSubArray, $file[($lineNumber-1+(4-$i))]);
 						}
 					}
 				}
 
 				array_push($subArray['data'], $subSubArray);
-				array_push($subArray['positionArray'], array($setFirstNum, ((int)($positionArray[1])-1)));
+				array_push($subArray['positionArray'], array($setFirstNum, ($lineNumber-1)));
 			}
 			else
 			{

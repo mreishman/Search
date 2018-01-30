@@ -48,6 +48,7 @@ $defaultConfig = array(
 	'updateNoticeMeter'	=> 'every',
 	'locationForStatus'	=> '',
 	'locationForMonitor'	=> '',
+	'locationForSeleniumMonitor'	=> '',
 	'locationForLogHog'	=> '',
 	'bottomBarIndexShow'	=> 'true',
 	'enablePollTimeLogging'	=> 'false',

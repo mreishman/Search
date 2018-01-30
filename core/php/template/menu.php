@@ -134,6 +134,54 @@ elseif(file_exists($linkModifier.'../../loghog/monitor/index.php'))
 {
 	$menuItems[$count] = array("title" => "monitor" , "action" => "window.location.href =  ".$linkModifier."'../../loghog/monitor/';", "image" => "core/img/task-manager.png");
 	$count++;
+}
+
+
+//check for seleniumMonitor
+if($locationForSeleniumMonitor)
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  '".$locationForSeleniumMonitor."';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../../seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../../monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../SeleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../../SeleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../../monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../Log-Hog/seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../Log-Hog/monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../../Log-Hog/seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../../Log-Hog/monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../loghog/seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../loghog/monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
+}
+elseif(file_exists($linkModifier.'../../loghog/seleniumMonitor/index.php'))
+{
+	$menuItems[$count] = array("title" => "seleniumMonitor" , "action" => "window.location.href =  ".$linkModifier."'../../loghog/monitor/';", "image" => "core/img/seleniumMonitor.png");
+	$count++;
 }	
 
 ?>
