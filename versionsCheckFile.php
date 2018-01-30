@@ -11,6 +11,10 @@ $versionCheckArray = array(
 			'branchName'	=> '1.0.1Update',
 			'releaseNotes'	=> '<ul><li>Bug Fixes</li></ul>'
 		),
+		'1.1'	        => array(
+			'branchName'	=> '1.1Update',
+			'releaseNotes'	=> '<ul><li>Features<ul><li>Added filters to search (advanced tab)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue where searches of more than one word did not work correctly</li></ul></li></ul>'
+		),
 	)
 );
 ?>
