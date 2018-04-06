@@ -621,3 +621,23 @@ div {
 .selectDiv option{
 	color: black;
 }
+
+.buttonSearch
+{
+	color: black;
+	background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.buttonSearch:hover
+{
+	background-color: black;
+	color: white;
+    padding: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 6px;
+}
