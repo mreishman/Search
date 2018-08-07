@@ -183,11 +183,11 @@ elseif (is_dir("../Monitor"))
 			
 		</div>
 		<dir class="paddingDiv">
-			<button onclick="scanDirCreate();">Run Grep</button>
+			<button class="buttonSearch" onclick="scanDirCreate();">Run Grep</button>
 			|
-			<button onclick="hideNewGrep();">Cancel</button>
+			<button class="buttonSearch" onclick="hideNewGrep();">Cancel</button>
 			|
-			<button onclick="showAdvanced();">Advanced</button>
+			<button class="buttonSearch" onclick="showAdvanced();">Advanced</button>
 		</dir>
 	</div>
 
